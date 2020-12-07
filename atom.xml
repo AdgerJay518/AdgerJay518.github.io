@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Joynoy&#39;s Blog</title>
+  
+  <subtitle>Learn something</subtitle>
+  <link href="http://www.jonyonwzj.top/atom.xml" rel="self"/>
+  
+  <link href="http://www.jonyonwzj.top/"/>
+  <updated>2020-12-07T15:27:48.946Z</updated>
+  <id>http://www.jonyonwzj.top/</id>
+  
+  <author>
+    <name>Zhengjie Wu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于标签页</title>
+    <link href="http://www.jonyonwzj.top/2020/12/07/%E5%85%B3%E4%BA%8E%E6%A0%87%E7%AD%BE%E9%A1%B5/"/>
+    <id>http://www.jonyonwzj.top/2020/12/07/%E5%85%B3%E4%BA%8E%E6%A0%87%E7%AD%BE%E9%A1%B5/</id>
+    <published>2020-12-07T15:25:02.000Z</published>
+    <updated>2020-12-07T15:27:48.946Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="此处是一个标签页"><a href="#此处是一个标签页" class="headerlink" title="此处是一个标签页"></a>此处是一个标签页</h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;此处是一个标签页&quot;&gt;&lt;a href=&quot;#此处是一个标签页&quot; class=&quot;headerlink&quot; title=&quot;此处是一个标签页&quot;&gt;&lt;/a&gt;此处是一个标签页&lt;/h1&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈自己对Java平台的理解,java是解释执行，这句话正确吗？</title>
+    <link href="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/"/>
+    <id>http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/</id>
+    <published>2020-12-07T11:20:25.000Z</published>
+    <updated>2020-12-07T15:32:04.714Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Java是解释执行吗？"><a href="#Java是解释执行吗？" class="headerlink" title="Java是解释执行吗？"></a>Java是解释执行吗？</h1><p>不正确</p><p>1.java源代码经由javac编译为.CLASS字节码文件</p><p>2..CLASS文件经由JVM类加载器解释或编译运行</p><p>（1）解释：.CLASS文件经过JVM内嵌的解析器解释执行</p><p>（2）编译：存在JIT（即时编译器）</p><p>（3）AOT编译器：java9提供的直接将所有代码编译为机器语言</p><p><a href="http://qkyqlz8bn.hn-bkt.clouddn.com/1-1.png">http://qkyqlz8bn.hn-bkt.clouddn.com/1-1.png</a></p><h1 id="对Java平台的理解"><a href="#对Java平台的理解" class="headerlink" title="对Java平台的理解"></a>对Java平台的理解</h1><p>说到java平台就不免想到java语言的跨平台特性，java语言的跨平台特性与java虚拟机的存在有着密不可分的关系，使java可以在不同环境中运行，比如说windows，linux平台都有相应的JDK，那么他们也就都有了java运行环境。java和其他编程语言没有特别大的差别，并不是说<strong>java可以跨平台，而是说不同的平台都有着可以让java语言运行的环境</strong>，所以才有了“一次编译，到处运行”。</p><p>严格来说，跨平台的语言不止java一种，但java是<strong>较为</strong>成熟的一种。</p><p>程序从源代码到运行有三个阶段：编码—编译—运行—调试，java是在<strong>编译</strong>阶段体现了跨平台的特性。</p><p>编译过程:</p><p>1.第一次编译：javac编译器将java源代码转化为.CLASS字节码文件</p><p>（.CLASS文件就是可以到处运行的文件）</p><p>2.第二次编译：java字节码会被转换成目标机器代码，由JVM类加载器加载字节码文件,通过解释器逐行解释执行，转换为最终的机器码</p><p>“到处运行”的关键就是JVM，因为在第二次编译中JVM起关键作用。在可以运行java虚拟机的地方都内含着一个JVM操作系统，从而使用java提供了各种不同平台上的虚拟机制。</p><p>强调：java不是编译机制，而是解释机制。java字节码的设计充分考虑了JIT这一即时编译方式，可以将字节码转换成高性能的本地机器码，这同样是虚拟机的一个构成部分。</p><p>第二次编译由JVM类加载器加载字节码文件这种方式执行速度较慢，有些方法和代码块是高频率调用的（热点代码）。所以引进JIT技术(运行时编译)，<strong>提前将这些字节码文件编译成本地机器码，类似于缓存技术，运行时再遇到这类代码可直接执行，而不是先解释后执行。</strong></p><p><a href="http://qkyqlz8bn.hn-bkt.clouddn.com/1-2.png">http://qkyqlz8bn.hn-bkt.clouddn.com/1-2.png</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Java是解释执行吗？&quot;&gt;&lt;a href=&quot;#Java是解释执行吗？&quot; class=&quot;headerlink&quot; title=&quot;Java是解释执行吗？&quot;&gt;&lt;/a&gt;Java是解释执行吗？&lt;/h1&gt;&lt;p&gt;不正确&lt;/p&gt;
+&lt;p&gt;1.java源代码经由javac编译为.CLA</summary>
+      
+    
+    
+    
+    <category term="java" scheme="http://www.jonyonwzj.top/categories/java/"/>
+    
+    
+    <category term="Java面试基础" scheme="http://www.jonyonwzj.top/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12/5</title>
+    <link href="http://www.jonyonwzj.top/2020/12/05/12-5/"/>
+    <id>http://www.jonyonwzj.top/2020/12/05/12-5/</id>
+    <published>2020-12-05T12:11:23.533Z</published>
+    <updated>2020-12-05T13:03:57.162Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="这是一个标题"><a href="#这是一个标题" class="headerlink" title="这是一个标题"></a>这是一个标题</h1><p>这是内容</p><p>new</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;这是一个标题&quot;&gt;&lt;a href=&quot;#这是一个标题&quot; class=&quot;headerlink&quot; title=&quot;这是一个标题&quot;&gt;&lt;/a&gt;这是一个标题&lt;/h1&gt;&lt;p&gt;这是内容&lt;/p&gt;
+&lt;p&gt;new&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.jonyonwzj.top/2020/12/05/hello-world/"/>
+    <id>http://www.jonyonwzj.top/2020/12/05/hello-world/</id>
+    <published>2020-12-05T09:57:22.844Z</published>
+    <updated>2020-12-05T12:59:11.464Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line">hexo new <span class="string">&quot;标题&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
