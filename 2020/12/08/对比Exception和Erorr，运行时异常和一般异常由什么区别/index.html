@@ -23,20 +23,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Trust The Process">
+<meta name="description" content="典型回答: Exception和Error都继承了Throwable类，在java中只有Throwable类型的实例才可以被抛出（throw）或捕获（catch）  Error：非正常情况下，不太可能出现的情况，绝大多数Error都会导致程序（比如JVM自身）处于非正常的，不可恢复的情况。因为是非正常的情况，所以不需要捕获。  Exception：程序正常运行中，可以预料的意外情况，并且应该被捕获">
 <meta property="og:type" content="article">
-<meta property="og:title" content=":title.md">
-<meta property="og:url" content="http://www.jonyonwzj.top/2020/12/08/title-md/index.html">
+<meta property="og:title" content="对比Exception和Erorr，运行时异常和一般异常由什么区别">
+<meta property="og:url" content="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="Trust The Process">
+<meta property="og:description" content="典型回答: Exception和Error都继承了Throwable类，在java中只有Throwable类型的实例才可以被抛出（throw）或捕获（catch）  Error：非正常情况下，不太可能出现的情况，绝大多数Error都会导致程序（比如JVM自身）处于非正常的，不可恢复的情况。因为是非正常的情况，所以不需要捕获。  Exception：程序正常运行中，可以预料的意外情况，并且应该被捕获">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-08T06:02:15.000Z">
-<meta property="article:modified_time" content="2020-12-08T06:02:15.407Z">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/1-1.png">
+<meta property="article:published_time" content="2020-12-08T13:13:15.000Z">
+<meta property="article:modified_time" content="2020-12-08T13:27:13.997Z">
 <meta property="article:author" content="Zhengjie Wu">
+<meta property="article:tag" content="Java面试基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/1-1.png">
 
 
-<link rel="canonical" href="http://www.jonyonwzj.top/2020/12/08/title-md/">
+<link rel="canonical" href="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/">
 
 
 <script class="page-configurations">
@@ -48,7 +51,7 @@
     lang   : 'en'
   };
 </script>
-<title>:title.md | Joynoy's Blog</title>
+<title>对比Exception和Erorr，运行时异常和一般异常由什么区别 | Joynoy's Blog</title>
   
 
   <script>
@@ -186,7 +189,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -199,6 +202,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%9B%9E%E7%AD%94"><span class="nav-text">典型回答:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#throws%E5%92%8Cthrow%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">throws和throw的区别：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoClassDefFoundError%E5%92%8CClassNotFoundException%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">NoClassDefFoundError和ClassNotFoundException的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99"><span class="nav-text">异常处理的两个基本原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-text">异常处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8D%E5%BE%AE%E6%AF%94%E5%96%BB%E4%B8%80%E4%B8%8B"><span class="nav-text">稍微比喻一下</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -280,7 +284,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/08/title-md/">
+    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avater.png">
@@ -293,7 +297,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          :title.md
+          对比Exception和Erorr，运行时异常和一般异常由什么区别
         </h1>
 
         <div class="post-meta-container">
@@ -303,8 +307,18 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2020-12-08 14:02:15" itemprop="dateCreated datePublished" datetime="2020-12-08T14:02:15+08:00">2020-12-08</time>
+      <time title="Created: 2020-12-08 21:13:15 / Modified: 21:27:13" itemprop="dateCreated datePublished" datetime="2020-12-08T21:13:15+08:00">2020-12-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
     </span>
 
   
@@ -317,7 +331,69 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="典型回答"><a href="#典型回答" class="headerlink" title="典型回答:"></a>典型回答:</h1><ul>
+<li><p>Exception和Error都继承了Throwable类，在java中只有Throwable类型的实例才可以被抛出（throw）或捕获（catch）</p>
+</li>
+<li><p>Error：非正常情况下，不太可能出现的情况，绝大多数Error都会导致程序（比如JVM自身）处于非正常的，不可恢复的情况。因为是非正常的情况，所以不需要捕获。</p>
+</li>
+<li><p>Exception：程序正常运行中，可以预料的意外情况，并且应该被捕获，进行相应的处理。</p>
+</li>
+<li><p>Exception分为可检查异常和不可检查异常</p>
+</li>
+</ul>
+<ol>
+<li>可检查异常（非RuntimeException）：在源码里必须显式的进行捕获处理，这是编译检查期的一部分。</li>
+<li>不可检查异常（RuntimeException）：运行时异常，通常可以通过编码避免的逻辑错误，具体根据需求判断是否需要捕获，不在编译期做具体要求。</li>
+</ol>
+<a id="more"></a>
+
+
+
+<p><img src="/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/1-1.png" alt="Trowable"></p>
+<h1 id="throws和throw的区别："><a href="#throws和throw的区别：" class="headerlink" title="throws和throw的区别："></a>throws和throw的区别：</h1><ul>
+<li>throw：语句抛出一个具体的异常类型，一般在代码块内部</li>
+</ul>
+<p><code>public static void testThrow(Integer i) &#123;</code></p>
+<p><code>if (i     == null) &#123;</code></p>
+<p>`throw     new NullPointerException();*//运行时异常不需要在方法上申明*``</p>
+<p><code>&#125;</code></p>
+<p><code>&#125;</code></p>
+<ul>
+<li>throws：声明一个方法可能产生的所有异常，不做任何处理而是将异常往上抛，谁调用我我就抛给谁</li>
+</ul>
+<p><code>public static void testThrows() throws NullPointerException &#123;</code></p>
+<p><code>Integer i = null;</code></p>
+<p><code>System.out.println(i + 1);</code></p>
+<p><code>&#125;</code></p>
+<h1 id="NoClassDefFoundError和ClassNotFoundException的区别"><a href="#NoClassDefFoundError和ClassNotFoundException的区别" class="headerlink" title="NoClassDefFoundError和ClassNotFoundException的区别"></a>NoClassDefFoundError和ClassNotFoundException的区别</h1><ul>
+<li><p>NoClassDefFoundError:一个class在编译时存在，在运行时找不到class文件了。（javac已经成功把程序编译为字节码文件了，</p>
+<p>当JVM进程启动，通过类加载器加载字节码文件，由JIT编译字节码指令时，在classpath下找不到相应的类进行加载）</p>
+</li>
+</ul>
+<ul>
+<li><p>ClassNotFoundException:使用类似Class.forName()方法时check Exception。（编码时编译器就能告诉你这个地方需要捕获异常，</p>
+<p>使用Class.forName()时必须捕获或者throws这个异常）</p>
+</li>
+</ul>
+<h1 id="异常处理的两个基本原则"><a href="#异常处理的两个基本原则" class="headerlink" title="异常处理的两个基本原则"></a>异常处理的两个基本原则</h1><p>1.尽量不要捕获Exception这样的通用异常，而是捕获特定异常；</p>
+<p>2.不要生吞（swallow）异常：如果不把异常抛出来，或者输出到日志，程序可能在后续代码以不可控的方式结束，无法判断哪里出了异常</p>
+<ul>
+<li>很多人喜欢在catch中用e.printStackTrace打印异常信息，但在稍微复杂的系统中就会不知道异常现象输出在哪里.最好使用日志，详细的输出到日志中.</li>
+</ul>
+<p>StackTrace(堆栈轨迹)</p>
+<p><code>try &#123;</code></p>
+<p>  <code>// 业务代码</code></p>
+<p>  <code>// …</code></p>
+<p><code>&#125; catch (IOException e) &#123;</code></p>
+<p>  <code>e.printStackTrace();</code></p>
+<p><code>&#125;</code></p>
+<h1 id="异常处理机制"><a href="#异常处理机制" class="headerlink" title="异常处理机制"></a>异常处理机制</h1><p>我们从性能角度来审视一下 Java 的异常处理机制，这里有两个可能会相对昂贵的地方：</p>
+<p>1.try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。</p>
+<p>2.Java 每实例化一个 Exception，都会对当时的栈进行快照，这是一个相对比较重的操作。如果发生的非常频繁，这个开销可就不能被忽略了。</p>
+<h2 id="稍微比喻一下"><a href="#稍微比喻一下" class="headerlink" title="稍微比喻一下"></a>稍微比喻一下</h2><p>开车上山，车坏了，拿出工具箱修一修，修好了，继续上路（Exception被捕获，从异常中恢复，继续程序的运行）</p>
+<p>车坏了，自己不知道该怎么修，打电话告诉修车行，告诉他具体是什么问题，要车行过来修（不知道是什么样的逻辑，把异常跑出去到更高的业务层来处理），打电话时要描述的具体，不然修车行不知道你有什么问题（要捕获特定的异常，不能捕获Exception特定异常）</p>
+<p>山塌了（Error）</p>
+
     </div>
 
     
@@ -372,6 +448,9 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/" rel="tag"># Java面试基础</a>
+          </div>
 
         
 

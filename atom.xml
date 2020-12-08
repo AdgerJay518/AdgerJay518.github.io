@@ -6,7 +6,7 @@
   <link href="http://www.jonyonwzj.top/atom.xml" rel="self"/>
   
   <link href="http://www.jonyonwzj.top/"/>
-  <updated>2020-12-08T06:02:15.407Z</updated>
+  <updated>2020-12-08T13:27:13.997Z</updated>
   <id>http://www.jonyonwzj.top/</id>
   
   <author>
@@ -17,15 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>:title.md</title>
-    <link href="http://www.jonyonwzj.top/2020/12/08/title-md/"/>
-    <id>http://www.jonyonwzj.top/2020/12/08/title-md/</id>
-    <published>2020-12-08T06:02:15.000Z</published>
-    <updated>2020-12-08T06:02:15.407Z</updated>
+    <title>对比Exception和Erorr，运行时异常和一般异常由什么区别</title>
+    <link href="http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
+    <id>http://www.jonyonwzj.top/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-12-08T13:13:15.000Z</published>
+    <updated>2020-12-08T13:27:13.997Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="典型回答"><a href="#典型回答" class="headerlink" title="典型回答:"></a>典型回答:</h1><ul><li><p>Exception和Error都继承了Throwable类，在java中只有Throwable类型的实例才可以被抛出（throw）或捕获（catch）</p></li><li><p>Error：非正常情况下，不太可能出现的情况，绝大多数Error都会导致程序（比如JVM自身）处于非正常的，不可恢复的情况。因为是非正常的情况，所以不需要捕获。</p></li><li><p>Exception：程序正常运行中，可以预料的意外情况，并且应该被捕获，进行相应的处理。</p></li><li><p>Exception分为可检查异常和不可检查异常</p></li></ul><ol><li>可检查异常（非RuntimeException）：在源码里必须显式的进行捕获处理，这是编译检查期的一部分。</li><li>不可检查异常（RuntimeException）：运行时异常，通常可以通过编码避免的逻辑错误，具体根据需求判断是否需要捕获，不在编译期做具体要求。</li></ol><a id="more"></a><p><img src="/2020/12/08/%E5%AF%B9%E6%AF%94Exception%E5%92%8CErorr%EF%BC%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8%E5%92%8C%E4%B8%80%E8%88%AC%E5%BC%82%E5%B8%B8%E7%94%B1%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/1-1.png" alt="Trowable"></p><h1 id="throws和throw的区别："><a href="#throws和throw的区别：" class="headerlink" title="throws和throw的区别："></a>throws和throw的区别：</h1><ul><li>throw：语句抛出一个具体的异常类型，一般在代码块内部</li></ul><p><code>public static void testThrow(Integer i) &#123;</code></p><p><code>if (i     == null) &#123;</code></p><p>`throw     new NullPointerException();*//运行时异常不需要在方法上申明*``</p><p><code>&#125;</code></p><p><code>&#125;</code></p><ul><li>throws：声明一个方法可能产生的所有异常，不做任何处理而是将异常往上抛，谁调用我我就抛给谁</li></ul><p><code>public static void testThrows() throws NullPointerException &#123;</code></p><p><code>Integer i = null;</code></p><p><code>System.out.println(i + 1);</code></p><p><code>&#125;</code></p><h1 id="NoClassDefFoundError和ClassNotFoundException的区别"><a href="#NoClassDefFoundError和ClassNotFoundException的区别" class="headerlink" title="NoClassDefFoundError和ClassNotFoundException的区别"></a>NoClassDefFoundError和ClassNotFoundException的区别</h1><ul><li><p>NoClassDefFoundError:一个class在编译时存在，在运行时找不到class文件了。（javac已经成功把程序编译为字节码文件了，</p><p>当JVM进程启动，通过类加载器加载字节码文件，由JIT编译字节码指令时，在classpath下找不到相应的类进行加载）</p></li></ul><ul><li><p>ClassNotFoundException:使用类似Class.forName()方法时check Exception。（编码时编译器就能告诉你这个地方需要捕获异常，</p><p>使用Class.forName()时必须捕获或者throws这个异常）</p></li></ul><h1 id="异常处理的两个基本原则"><a href="#异常处理的两个基本原则" class="headerlink" title="异常处理的两个基本原则"></a>异常处理的两个基本原则</h1><p>1.尽量不要捕获Exception这样的通用异常，而是捕获特定异常；</p><p>2.不要生吞（swallow）异常：如果不把异常抛出来，或者输出到日志，程序可能在后续代码以不可控的方式结束，无法判断哪里出了异常</p><ul><li>很多人喜欢在catch中用e.printStackTrace打印异常信息，但在稍微复杂的系统中就会不知道异常现象输出在哪里.最好使用日志，详细的输出到日志中.</li></ul><p>StackTrace(堆栈轨迹)</p><p><code>try &#123;</code></p><p>  <code>// 业务代码</code></p><p>  <code>// …</code></p><p><code>&#125; catch (IOException e) &#123;</code></p><p>  <code>e.printStackTrace();</code></p><p><code>&#125;</code></p><h1 id="异常处理机制"><a href="#异常处理机制" class="headerlink" title="异常处理机制"></a>异常处理机制</h1><p>我们从性能角度来审视一下 Java 的异常处理机制，这里有两个可能会相对昂贵的地方：</p><p>1.try-catch 代码段会产生额外的性能开销，或者换个角度说，它往往会影响 JVM 对代码进行优化，所以建议仅捕获有必要的代码段，尽量不要一个大的 try 包住整段的代码；与此同时，利用异常控制代码流程，也不是一个好主意，远比我们通常意义上的条件语句（if/else、switch）要低效。</p><p>2.Java 每实例化一个 Exception，都会对当时的栈进行快照，这是一个相对比较重的操作。如果发生的非常频繁，这个开销可就不能被忽略了。</p><h2 id="稍微比喻一下"><a href="#稍微比喻一下" class="headerlink" title="稍微比喻一下"></a>稍微比喻一下</h2><p>开车上山，车坏了，拿出工具箱修一修，修好了，继续上路（Exception被捕获，从异常中恢复，继续程序的运行）</p><p>车坏了，自己不知道该怎么修，打电话告诉修车行，告诉他具体是什么问题，要车行过来修（不知道是什么样的逻辑，把异常跑出去到更高的业务层来处理），打电话时要描述的具体，不然修车行不知道你有什么问题（要捕获特定的异常，不能捕获Exception特定异常）</p><p>山塌了（Error）</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;典型回答&quot;&gt;&lt;a href=&quot;#典型回答&quot; class=&quot;headerlink&quot; title=&quot;典型回答:&quot;&gt;&lt;/a&gt;典型回答:&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Exception和Error都继承了Throwable类，在java中只有Throwable类型的实例才可以被抛出（throw）或捕获（catch）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Error：非正常情况下，不太可能出现的情况，绝大多数Error都会导致程序（比如JVM自身）处于非正常的，不可恢复的情况。因为是非正常的情况，所以不需要捕获。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exception：程序正常运行中，可以预料的意外情况，并且应该被捕获，进行相应的处理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exception分为可检查异常和不可检查异常&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;可检查异常（非RuntimeException）：在源码里必须显式的进行捕获处理，这是编译检查期的一部分。&lt;/li&gt;
+&lt;li&gt;不可检查异常（RuntimeException）：运行时异常，通常可以通过编码避免的逻辑错误，具体根据需求判断是否需要捕获，不在编译期做具体要求。&lt;/li&gt;
+&lt;/ol&gt;</summary>
     
     
     
+    <category term="java" scheme="http://www.jonyonwzj.top/categories/java/"/>
     
+    
+    <category term="Java面试基础" scheme="http://www.jonyonwzj.top/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -34,9 +55,9 @@
     <link href="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/"/>
     <id>http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/</id>
     <published>2020-12-07T11:20:25.000Z</published>
-    <updated>2020-12-08T06:08:37.205Z</updated>
+    <updated>2020-12-08T13:11:37.452Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Java是解释执行吗？"><a href="#Java是解释执行吗？" class="headerlink" title="Java是解释执行吗？"></a>Java是解释执行吗？</h1><p>不正确</p><p>1.java源代码经由javac编译为.CLASS字节码文件</p><p>2..CLASS文件经由JVM类加载器解释或编译运行</p><a id="more"></a><p>（1）解释：.CLASS文件经过JVM内嵌的解析器解释执行</p><p>（2）编译：存在JIT（即时编译器）</p><p>（3）AOT编译器：java9提供的直接将所有代码编译为机器语言</p><p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog\myblog\source_posts\title-md\1-1.png" alt="关于JAVA平台"></p><h1 id="对Java平台的理解"><a href="#对Java平台的理解" class="headerlink" title="对Java平台的理解"></a>对Java平台的理解</h1><p>说到java平台就不免想到java语言的跨平台特性，java语言的跨平台特性与java虚拟机的存在有着密不可分的关系，使java可以在不同环境中运行，比如说windows，linux平台都有相应的JDK，那么他们也就都有了java运行环境。java和其他编程语言没有特别大的差别，并不是说<strong>java可以跨平台，而是说不同的平台都有着可以让java语言运行的环境</strong>，所以才有了“一次编译，到处运行”。</p><p>严格来说，跨平台的语言不止java一种，但java是<strong>较为</strong>成熟的一种。</p><p>程序从源代码到运行有三个阶段：编码—编译—运行—调试，java是在<strong>编译</strong>阶段体现了跨平台的特性。</p><p>编译过程:</p><p>1.第一次编译：javac编译器将java源代码转化为.CLASS字节码文件</p><p>（.CLASS文件就是可以到处运行的文件）</p><p>2.第二次编译：java字节码会被转换成目标机器代码，由JVM类加载器加载字节码文件,通过解释器逐行解释执行，转换为最终的机器码</p><p>“到处运行”的关键就是JVM，因为在第二次编译中JVM起关键作用。在可以运行java虚拟机的地方都内含着一个JVM操作系统，从而使用java提供了各种不同平台上的虚拟机制。</p><p>强调：java不是编译机制，而是解释机制。java字节码的设计充分考虑了JIT这一即时编译方式，可以将字节码转换成高性能的本地机器码，这同样是虚拟机的一个构成部分。</p><p>第二次编译由JVM类加载器加载字节码文件这种方式执行速度较慢，有些方法和代码块是高频率调用的（热点代码）。所以引进JIT技术(运行时编译)，<strong>提前将这些字节码文件编译成本地机器码，类似于缓存技术，运行时再遇到这类代码可直接执行，而不是先解释后执行。</strong></p><p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog\myblog\source_posts\title-md\1-2.png" alt="对JAVA平台的理解"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Java是解释执行吗？"><a href="#Java是解释执行吗？" class="headerlink" title="Java是解释执行吗？"></a>Java是解释执行吗？</h1><p>不正确</p><p>1.java源代码经由javac编译为.CLASS字节码文件</p><p>2..CLASS文件经由JVM类加载器解释或编译运行</p><a id="more"></a><p>（1）解释：.CLASS文件经过JVM内嵌的解析器解释执行</p><p>（2）编译：存在JIT（即时编译器）</p><p>（3）AOT编译器：java9提供的直接将所有代码编译为机器语言</p><p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/1-1.png" alt="关于JAVA平台"></p><h1 id="对Java平台的理解"><a href="#对Java平台的理解" class="headerlink" title="对Java平台的理解"></a>对Java平台的理解</h1><p>说到java平台就不免想到java语言的跨平台特性，java语言的跨平台特性与java虚拟机的存在有着密不可分的关系，使java可以在不同环境中运行，比如说windows，linux平台都有相应的JDK，那么他们也就都有了java运行环境。java和其他编程语言没有特别大的差别，并不是说<strong>java可以跨平台，而是说不同的平台都有着可以让java语言运行的环境</strong>，所以才有了“一次编译，到处运行”。</p><p>严格来说，跨平台的语言不止java一种，但java是<strong>较为</strong>成熟的一种。</p><p>程序从源代码到运行有三个阶段：编码—编译—运行—调试，java是在<strong>编译</strong>阶段体现了跨平台的特性。</p><p>编译过程:</p><p>1.第一次编译：javac编译器将java源代码转化为.CLASS字节码文件</p><p>（.CLASS文件就是可以到处运行的文件）</p><p>2.第二次编译：java字节码会被转换成目标机器代码，由JVM类加载器加载字节码文件,通过解释器逐行解释执行，转换为最终的机器码</p><p>“到处运行”的关键就是JVM，因为在第二次编译中JVM起关键作用。在可以运行java虚拟机的地方都内含着一个JVM操作系统，从而使用java提供了各种不同平台上的虚拟机制。</p><p>强调：java不是编译机制，而是解释机制。java字节码的设计充分考虑了JIT这一即时编译方式，可以将字节码转换成高性能的本地机器码，这同样是虚拟机的一个构成部分。</p><p>第二次编译由JVM类加载器加载字节码文件这种方式执行速度较慢，有些方法和代码块是高频率调用的（热点代码）。所以引进JIT技术(运行时编译)，<strong>提前将这些字节码文件编译成本地机器码，类似于缓存技术，运行时再遇到这类代码可直接执行，而不是先解释后执行。</strong></p><p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/1-2.png" alt="对JAVA平台的理解"></p>]]></content>
     
     
     <summary type="html">&lt;h1 id=&quot;Java是解释执行吗？&quot;&gt;&lt;a href=&quot;#Java是解释执行吗？&quot; class=&quot;headerlink&quot; title=&quot;Java是解释执行吗？&quot;&gt;&lt;/a&gt;Java是解释执行吗？&lt;/h1&gt;&lt;p&gt;不正确&lt;/p&gt;
