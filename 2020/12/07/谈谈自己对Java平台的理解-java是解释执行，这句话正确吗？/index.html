@@ -7,9 +7,9 @@
 <meta name="generator" content="Hexo 5.2.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/W_apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -21,20 +21,23 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+    var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Java是解释执行吗？不正确 1.java源代码经由javac编译为.CLASS字节码文件 2..CLASS文件经由JVM类加载器解释或编译运行 （1）解释：.CLASS文件经过JVM内嵌的解析器解释执行 （2）编译：存在JIT（即时编译器） （3）AOT编译器：java9提供的直接将所有代码编译为机器语言 http:&#x2F;&#x2F;qkyqlz8bn.hn-bkt.clouddn.com&#x2F;1-1.png 对">
+<meta name="description" content="Java是解释执行吗？不正确 1.java源代码经由javac编译为.CLASS字节码文件 2..CLASS文件经由JVM类加载器解释或编译运行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈自己对Java平台的理解,java是解释执行，这句话正确吗？">
 <meta property="og:url" content="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="Java是解释执行吗？不正确 1.java源代码经由javac编译为.CLASS字节码文件 2..CLASS文件经由JVM类加载器解释或编译运行 （1）解释：.CLASS文件经过JVM内嵌的解析器解释执行 （2）编译：存在JIT（即时编译器） （3）AOT编译器：java9提供的直接将所有代码编译为机器语言 http:&#x2F;&#x2F;qkyqlz8bn.hn-bkt.clouddn.com&#x2F;1-1.png 对">
+<meta property="og:description" content="Java是解释执行吗？不正确 1.java源代码经由javac编译为.CLASS字节码文件 2..CLASS文件经由JVM类加载器解释或编译运行">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog/myblog/source_posts/title-md/1-1.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog/myblog/source_posts/title-md/1-2.png">
 <meta property="article:published_time" content="2020-12-07T11:20:25.000Z">
-<meta property="article:modified_time" content="2020-12-07T15:32:04.714Z">
+<meta property="article:modified_time" content="2020-12-08T06:08:37.205Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta property="article:tag" content="Java面试基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog/myblog/source_posts/title-md/1-1.png">
 
 
 <link rel="canonical" href="http://www.jonyonwzj.top/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/">
@@ -127,6 +130,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -143,11 +147,37 @@
         <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
         
@@ -189,7 +219,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -278,10 +308,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2020-12-07 19:20:25 / Modified: 23:32:04" itemprop="dateCreated datePublished" datetime="2020-12-07T19:20:25+08:00">2020-12-07</time>
+      <time title="Created: 2020-12-07 19:20:25" itemprop="dateCreated datePublished" datetime="2020-12-07T19:20:25+08:00">2020-12-07</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-08 14:08:37" itemprop="dateModified" datetime="2020-12-08T14:08:37+08:00">2020-12-08</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -305,10 +341,12 @@
         <h1 id="Java是解释执行吗？"><a href="#Java是解释执行吗？" class="headerlink" title="Java是解释执行吗？"></a>Java是解释执行吗？</h1><p>不正确</p>
 <p>1.java源代码经由javac编译为.CLASS字节码文件</p>
 <p>2..CLASS文件经由JVM类加载器解释或编译运行</p>
+<a id="more"></a>
+
 <p>（1）解释：.CLASS文件经过JVM内嵌的解析器解释执行</p>
 <p>（2）编译：存在JIT（即时编译器）</p>
 <p>（3）AOT编译器：java9提供的直接将所有代码编译为机器语言</p>
-<p><a target="_blank" rel="noopener" href="http://qkyqlz8bn.hn-bkt.clouddn.com/1-1.png">http://qkyqlz8bn.hn-bkt.clouddn.com/1-1.png</a></p>
+<p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog\myblog\source_posts\title-md\1-1.png" alt="关于JAVA平台"></p>
 <h1 id="对Java平台的理解"><a href="#对Java平台的理解" class="headerlink" title="对Java平台的理解"></a>对Java平台的理解</h1><p>说到java平台就不免想到java语言的跨平台特性，java语言的跨平台特性与java虚拟机的存在有着密不可分的关系，使java可以在不同环境中运行，比如说windows，linux平台都有相应的JDK，那么他们也就都有了java运行环境。java和其他编程语言没有特别大的差别，并不是说<strong>java可以跨平台，而是说不同的平台都有着可以让java语言运行的环境</strong>，所以才有了“一次编译，到处运行”。</p>
 <p>严格来说，跨平台的语言不止java一种，但java是<strong>较为</strong>成熟的一种。</p>
 <p>程序从源代码到运行有三个阶段：编码—编译—运行—调试，java是在<strong>编译</strong>阶段体现了跨平台的特性。</p>
@@ -319,7 +357,7 @@
 <p>“到处运行”的关键就是JVM，因为在第二次编译中JVM起关键作用。在可以运行java虚拟机的地方都内含着一个JVM操作系统，从而使用java提供了各种不同平台上的虚拟机制。</p>
 <p>强调：java不是编译机制，而是解释机制。java字节码的设计充分考虑了JIT这一即时编译方式，可以将字节码转换成高性能的本地机器码，这同样是虚拟机的一个构成部分。</p>
 <p>第二次编译由JVM类加载器加载字节码文件这种方式执行速度较慢，有些方法和代码块是高频率调用的（热点代码）。所以引进JIT技术(运行时编译)，<strong>提前将这些字节码文件编译成本地机器码，类似于缓存技术，运行时再遇到这类代码可直接执行，而不是先解释后执行。</strong></p>
-<p><a target="_blank" rel="noopener" href="http://qkyqlz8bn.hn-bkt.clouddn.com/1-2.png">http://qkyqlz8bn.hn-bkt.clouddn.com/1-2.png</a></p>
+<p><img src="/2020/12/07/%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E5%AF%B9Java%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%90%86%E8%A7%A3-java%E6%98%AF%E8%A7%A3%E9%87%8A%E6%89%A7%E8%A1%8C%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%AD%A3%E7%A1%AE%E5%90%97%EF%BC%9F/blog\myblog\source_posts\title-md\1-2.png" alt="对JAVA平台的理解"></p>
 
     </div>
 
@@ -383,13 +421,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/05/12-5/" rel="prev" title="12/5">
-                  <i class="fa fa-chevron-left"></i> 12/5
+                <a href="/2020/12/05/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/07/%E5%85%B3%E4%BA%8E%E6%A0%87%E7%AD%BE%E9%A1%B5/" rel="next" title="关于标签页">
-                  关于标签页 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/12/08/title-md/" rel="next" title=":title.md">
+                  :title.md <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -470,6 +508,7 @@ setInterval("createtime()",250);
 
   
 
+<script src="/js/local-search.js"></script>
 
 
 
