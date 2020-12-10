@@ -6,7 +6,7 @@
   <link href="http://www.jonyonwzj.top/atom.xml" rel="self"/>
   
   <link href="http://www.jonyonwzj.top/"/>
-  <updated>2020-12-09T09:58:04.964Z</updated>
+  <updated>2020-12-10T13:10:40.893Z</updated>
   <id>http://www.jonyonwzj.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谈谈final、finally、finalize有什么不同</title>
+    <link href="http://www.jonyonwzj.top/2020/12/10/%E8%B0%88%E8%B0%88final%E3%80%81finally%E3%80%81finalize%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C/"/>
+    <id>http://www.jonyonwzj.top/2020/12/10/%E8%B0%88%E8%B0%88final%E3%80%81finally%E3%80%81finalize%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C/</id>
+    <published>2020-12-10T12:59:13.000Z</published>
+    <updated>2020-12-10T13:10:40.893Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="典型回答"><a href="#典型回答" class="headerlink" title="典型回答"></a>典型回答</h1><p>final（修饰词）：适合用来在语义方面标识当前的方法、变量、类不可以更改，适合封装一些代码，让用的人知道这些不要随意更改。<strong>final</strong>标识的变量不等于不可变，对于变量而言这个变量只是不能够再赋值，但是可以做任何增删改查操作。所以从这方面来讲，final在高并发下面的数据一致性起到积极作用，对性能比较好。</p><a id="more"></a><p>要想写一个不可变的对象（immutable）：</p><p>首先对象和类的成员都是private和final；</p><p>其次对象的赋值不要直接赋值，而是采用<strong>深拷贝</strong>；</p><p>对象不要随意实现setter（）方法；</p><p>在获取当前对象或状态的时候要遵守<strong>copy or write**</strong>原则**，创建私有的copy。</p><p>finally（基础类）：保证重点代码一定要被执行的<strong>一种机制</strong>，在一些资源处理关闭时用到，使用try-finally，try-catch-finally来进行类似关闭JDBC，保证unlock锁等动作，对于try catch最好即关即用。更推荐使用java7中添加的try-with-resources语句。</p><blockquote><p>try-with-resources（语法糖）：</p><p>try-with-resources会自动关闭try（）中的资源，并且将先关闭后声明的资源。</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">列几个 fianlly 不会被执行的情况:</span><br><span class="line"><span class="number">1.</span> <span class="keyword">try</span>-cach 异常退出。</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">system.exit(<span class="number">1</span>)</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">print(abc)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 无限循环</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(ture)&#123;</span><br><span class="line">    print(abc)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">print(abc)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 线程被杀死</span><br><span class="line">当执行 <span class="keyword">try</span>，<span class="keyword">finally</span> 的线程被杀死时。<span class="keyword">finally</span> 也无法执行。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">总结</span><br><span class="line"><span class="number">1</span>，不要在 <span class="keyword">finally</span> 中使用 <span class="keyword">return</span> 语句。</span><br><span class="line"><span class="number">2</span>，<span class="keyword">finally</span> 总是执行，除非程序或者线程被中断。</span><br></pre></td></tr></table></figure><p>finalize(基础类)：java虚拟机在实现GC（垃圾回收）时调用的方法，理论上是进行内存回收等操作的地方。但实际上这个方法调用时机并不固定，有可能处理不当导致程序异常。并且finalize源码实现使用了try catch，但是并没有抛出异常，而是生吞。所以要是在这里面处理逻辑，自己都不知道哪里出了问题。<strong>finalize**</strong>机制**已经不推荐使用，并且在JDK9被标记为deprecated.（目前在逐步使用Cleaner来替换掉原有的finalize实现）</p><h1 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h1><p>这两个概念的区别就是“当在给一个变量赋值的时候是否直接使用这个值的内存地址”</p><p>例如：</p><p>基础类型都是值传递，所以浅拷贝过来的对象赋值后不会影响之前被拷贝的对象。</p><p>但是对于引用类型的变量，在拷贝的时候就需要考虑了，如果你要使新的对象的赋值不会影响之前被拷贝的对象，就要用深拷贝，否则就是copy的内存地址。</p><p>一个类实现拷贝的功能很简单，有两种方式：</p><p>1.实现Clone接口，在clone方法里面进行拷贝</p><p>2.要是实现序列化，先把对象写到输入流里面，然后再读出来对象，这样就是一个新的对象了。</p><h1 id="Copy-or-write"><a href="#Copy-or-write" class="headerlink" title="Copy or write"></a>Copy or write</h1><p>Copy or write：保证只有一个专门的线程往里面写；可以有多个线程读取，这样能保证线程同步。</p><p>Copy or wirte原则核心思想：有线程使用容器中的数据时，如果是写入，则复制出一个新容器，修改新容器中的数据后，再将引用指向新容器。如果是读操作则正常读引用地址中的容器数据。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;典型回答&quot;&gt;&lt;a href=&quot;#典型回答&quot; class=&quot;headerlink&quot; title=&quot;典型回答&quot;&gt;&lt;/a&gt;典型回答&lt;/h1&gt;&lt;p&gt;final（修饰词）：适合用来在语义方面标识当前的方法、变量、类不可以更改，适合封装一些代码，让用的人知道这些不要随意更改。&lt;strong&gt;final&lt;/strong&gt;标识的变量不等于不可变，对于变量而言这个变量只是不能够再赋值，但是可以做任何增删改查操作。所以从这方面来讲，final在高并发下面的数据一致性起到积极作用，对性能比较好。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="java" scheme="http://www.jonyonwzj.top/categories/java/"/>
+    
+    
+    <category term="Java面试基础" scheme="http://www.jonyonwzj.top/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker的常用命令</title>
