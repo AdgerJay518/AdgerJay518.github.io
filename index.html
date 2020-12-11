@@ -303,7 +303,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-12-11 16:31:39 / Modified: 16:32:12" itemprop="dateCreated datePublished" datetime="2020-12-11T16:31:39+08:00">2020-12-11</time>
+      <time title="Created: 2020-12-11 16:31:39 / Modified: 16:34:26" itemprop="dateCreated datePublished" datetime="2020-12-11T16:31:39+08:00">2020-12-11</time>
     </span>
 
   
@@ -317,44 +317,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h1><p>git config –list</p>
-<h1 id="设置用户信息"><a href="#设置用户信息" class="headerlink" title="设置用户信息"></a>设置用户信息</h1><p>git config –global user.name “”<br>git config –global user.email “”</p>
-<h1 id="在本地初始化一个git仓库-此文件为隐藏文件夹"><a href="#在本地初始化一个git仓库-此文件为隐藏文件夹" class="headerlink" title="在本地初始化一个git仓库 (此文件为隐藏文件夹)#"></a>在本地初始化一个git仓库 (此文件为隐藏文件夹)#</h1><p>git init</p>
-<h1 id="从远程仓库克隆"><a href="#从远程仓库克隆" class="headerlink" title="从远程仓库克隆"></a>从远程仓库克隆</h1><p>git clone 远程Git仓库地址</p>
-<h1 id="工作目录、暂存区、-版本库概念"><a href="#工作目录、暂存区、-版本库概念" class="headerlink" title="工作目录、暂存区、 版本库概念#"></a>工作目录、暂存区、 版本库概念#</h1><p>版本库: .git隐藏文件<br>工作目录:包含.git文件夹的目录<br>暂存区: .git文件中的index文件</p>
-<h1 id="git工作目录下文件的两种状态"><a href="#git工作目录下文件的两种状态" class="headerlink" title="git工作目录下文件的两种状态"></a>git工作目录下文件的两种状态</h1><p>untracked 未跟踪(未被纳入版本控制)<br>tracked 已跟踪(被纳入版本控制)<br> Unmodified 未修改状态<br> Modified 修改状态<br> Staged 已暂存状态</p>
-<hr>
-<h1 id="本地仓库操作"><a href="#本地仓库操作" class="headerlink" title="本地仓库操作"></a>本地仓库操作</h1><h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><p>git status<br>git status -s (使输出信息更加简洁)</p>
-<h2 id="将未跟踪文件加入暂存区"><a href="#将未跟踪文件加入暂存区" class="headerlink" title="将未跟踪文件加入暂存区"></a>将未跟踪文件加入暂存区</h2><p>git add hello.txt</p>
-<h2 id="将暂存区的文件取消暂存"><a href="#将暂存区的文件取消暂存" class="headerlink" title="将暂存区的文件取消暂存"></a>将暂存区的文件取消暂存</h2><p>git reset hello.txt</p>
-<h2 id="将暂存区的文件修改提交到仓库"><a href="#将暂存区的文件修改提交到仓库" class="headerlink" title="将暂存区的文件修改提交到仓库"></a>将暂存区的文件修改提交到仓库</h2><p>git commit -m “日志文件”</p>
-<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>git rm hello.txt(只删除了工作区的，把操作放到暂存区)<br>git commit -m “delete hello.txt”(提交到本地仓库,真正删除)<br>注:手动删除后文件会变为未跟踪状态，需要git add 加入暂存区后，git commit 提交文件修改状态到仓库</p>
-<h2 id="忽略列表"><a href="#忽略列表" class="headerlink" title="忽略列表"></a>忽略列表</h2><p>touch .gitignore 创建一个.gitignore文件列出要忽略的文件模式</p>
-<p><em>.a   (以.a结尾的文件忽略不进行管理)<br>!lib.a    (lib.a除外)<br>/todo (tode文件忽略)<br>build/ (build目录下所有文件忽略)<br>doc/</em>.txt (忽略doc目录下所有的txt文件)<br>doc/*<em>/</em>.pdf (忽略doc目录下包含子目录下的所有pdf文件)</p>
-<h2 id="查看日志信息"><a href="#查看日志信息" class="headerlink" title="查看日志信息"></a>查看日志信息</h2><p>git log</p>
-<hr>
-<h1 id="远程仓库操作"><a href="#远程仓库操作" class="headerlink" title="远程仓库操作"></a>远程仓库操作</h1><h2 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h2><p>git remote<br>git remote -v<br>git remote show origin(显示详细信息)</p>
-<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>git remote add 仓库名(一般叫origin) 地址</p>
-<h2 id="移除无效远程仓库"><a href="#移除无效远程仓库" class="headerlink" title="移除无效远程仓库"></a>移除无效远程仓库</h2><p>git remote rm 仓库名 (只是从本地移除远程仓库的记录，并不会真正影响到远程仓库)</p>
-<h2 id="从远程仓库抓取或拉取"><a href="#从远程仓库抓取或拉取" class="headerlink" title="从远程仓库抓取或拉取"></a>从远程仓库抓取或拉取</h2><p>git fitch是从远程仓库获取最新版本到本地仓库，不会自动merge(合并)<br>git merge origin/master(合并origin/master分支)</p>
-<p>git pull是从远程仓库获取最新版本到本地仓库，会自动merge(合并)<br>git pull origin master –allow-unrelated-histories(强行拉取)</p>
-<h2 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h2><p>git push origin master</p>
-<hr>
-<h1 id="git分支"><a href="#git分支" class="headerlink" title="git分支"></a>git分支</h1><h2 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h2><p>git branch 列出所有本地分支<br>git branch -r 列出所有远程分支<br>git branch -a 列出所有本地分支和远程分支</p>
-<h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><p>git branch 分支名称(b1)</p>
-<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><p>git checkout 分支名称(b1)</p>
-<h2 id="推送至远程仓库分支"><a href="#推送至远程仓库分支" class="headerlink" title="推送至远程仓库分支"></a>推送至远程仓库分支</h2><p>git push origin 分支名称(b1)</p>
-<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>git merge 分支名称b1</p>
-<p>有时候合并操作不会如此顺利，如果你在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，git就没办法合并他们，<br>同时会提示文件冲突。此时我们需要打开冲突的文件并修复冲突的内容，最后执行git add命令来标识冲突已解决。</p>
-<h2 id="推送到远程仓库-1"><a href="#推送到远程仓库-1" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h2><p>git push origin 分支名称(master)<br>git push origin 分支名称(b1)</p>
-<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><p>git branch -d 分支名称(b1)<br>git branch -D 分支名称(b1)   (强制删除)</p>
-<h2 id="删除远程仓库的分支"><a href="#删除远程仓库的分支" class="headerlink" title="删除远程仓库的分支"></a>删除远程仓库的分支</h2><p>git push origin -d 分支名称(b1)</p>
-<hr>
-<h1 id="git标签"><a href="#git标签" class="headerlink" title="git标签"></a>git标签</h1><h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><p>git tag 标签名（v1.0）</p>
-<h2 id="列出已有的标签"><a href="#列出已有的标签" class="headerlink" title="列出已有的标签"></a>列出已有的标签</h2><p>git tag (列出所有tag)<br>git show 标签名（v1.0）</p>
-<h2 id="将标签推送至远程仓库"><a href="#将标签推送至远程仓库" class="headerlink" title="将标签推送至远程仓库"></a>将标签推送至远程仓库</h2><p>git push 远程仓库名(origin) 标签名（v1.0）</p>
-<h2 id="检出标签"><a href="#检出标签" class="headerlink" title="检出标签"></a>检出标签</h2><p>git checkout -b 分支名称(b2) 标签名(v1.0)  创建新的分支b2状态为v1.0的状态</p>
-<h2 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h2><p>git tag -d 标签名(v1.0)    删除本地标签<br>git push origin:refs/tags/标签名     删除远程标签</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/11/git/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
