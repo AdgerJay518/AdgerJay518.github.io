@@ -24,12 +24,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="容器数据卷什么是容器数据卷docker理念：将应用和环境打包成一个镜像 但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：数据持久化 卷技术：容器之间可以有一个数据共享的技术，docker中产生的数据，同步到本地。也可说是目录的挂载，将容器内的目录，挂载到linux上  实现了容器的持久化和同步操作，容器间也是可以数据共享的 使用数据卷 方式一：直接使用命令来挂载  123">
+<meta name="description" content="容器数据卷什么是容器数据卷docker理念：将应用和环境打包成一个镜像 但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：数据持久化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="容器数据卷">
 <meta property="og:url" content="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="容器数据卷什么是容器数据卷docker理念：将应用和环境打包成一个镜像 但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：数据持久化 卷技术：容器之间可以有一个数据共享的技术，docker中产生的数据，同步到本地。也可说是目录的挂载，将容器内的目录，挂载到linux上  实现了容器的持久化和同步操作，容器间也是可以数据共享的 使用数据卷 方式一：直接使用命令来挂载  123">
+<meta property="og:description" content="容器数据卷什么是容器数据卷docker理念：将应用和环境打包成一个镜像 但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：数据持久化">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/1-1.png">
 <meta property="og:image" content="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/1-2.png">
@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/1-7.png">
 <meta property="og:image" content="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/1-8.png">
 <meta property="article:published_time" content="2020-12-12T09:16:44.000Z">
-<meta property="article:modified_time" content="2020-12-12T09:22:00.219Z">
+<meta property="article:modified_time" content="2020-12-12T09:22:34.932Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
@@ -317,7 +317,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-12-12 17:16:44 / Modified: 17:22:00" itemprop="dateCreated datePublished" datetime="2020-12-12T17:16:44+08:00">2020-12-12</time>
+      <time title="Created: 2020-12-12 17:16:44 / Modified: 17:22:34" itemprop="dateCreated datePublished" datetime="2020-12-12T17:16:44+08:00">2020-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,6 +348,8 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p><strong>docker理念</strong>：将应用和环境打包成一个镜像</p>
 <p>但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：<strong>数据持久化</strong></p>
+<a id="more"></a>
+
 <p><strong>卷技术</strong>：容器之间可以有一个数据共享的技术，docker中产生的数据，同步到本地。也可说是目录的挂载，将容器内的目录，挂载到linux上</p>
 <p><img src="/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/1-1.png" alt="image-20201212130911804"></p>
 <p><strong>实现了容器的持久化和同步操作，容器间也是可以数据共享的</strong></p>
