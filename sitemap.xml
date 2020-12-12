@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.jonyonwzj.top/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2020-12-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.jonyonwzj.top/2020/12/11/git/</loc>
     
     <lastmod>2020-12-11</lastmod>
@@ -74,7 +81,7 @@
 
   <url>
     <loc>http://www.jonyonwzj.top/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -82,21 +89,21 @@
   
   <url>
     <loc>http://www.jonyonwzj.top/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.jonyonwzj.top/tags/Docker/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.jonyonwzj.top/tags/git/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -105,7 +112,7 @@
   
   <url>
     <loc>http://www.jonyonwzj.top/categories/java/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
