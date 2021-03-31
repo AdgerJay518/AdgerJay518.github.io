@@ -74,7 +74,7 @@
     <link href="http://www.jonyonwzj.top/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/"/>
     <id>http://www.jonyonwzj.top/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/</id>
     <published>2020-12-12T03:45:39.000Z</published>
-    <updated>2021-03-31T15:20:03.864Z</updated>
+    <updated>2021-03-31T15:24:15.367Z</updated>
     
     <content type="html"><![CDATA[<h2 id="镜像是什么"><a href="#镜像是什么" class="headerlink" title="镜像是什么"></a>镜像是什么</h2><p>镜像是一种轻量级，可独立执行的软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的内容，包括代码、运行时，库、环境变量和配置文件</p><p>所有的应用，直接打包docker镜像，就可以运行起来</p><p>如何得到镜像</p><ul><li><p>从远程仓库下载</p></li><li><p>别人拷贝给你</p></li><li><p>自己制作一个DockerFile</p><a id="more"></a></li></ul><h2 id="Docker镜像加载原理"><a href="#Docker镜像加载原理" class="headerlink" title="Docker镜像加载原理"></a>Docker镜像加载原理</h2><h3 id="UnionFS-联合文件系统"><a href="#UnionFS-联合文件系统" class="headerlink" title="UnionFS(联合文件系统)"></a>UnionFS(联合文件系统)</h3><p>下载镜像的时候，一层一层的就是这个</p><p>联合文件系统：Union文件系统是一种分层、轻量级、并且高性能的文件系统、它支持对文件系统的修改作为一次提交来一层层叠加，同时可以将不同目录挂载到同一虚拟文件系统下。联合文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。</p><p>特性：一次同时加载多个文件系统，但从外面看起来。只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p><h3 id="Docker镜像加载原理-1"><a href="#Docker镜像加载原理-1" class="headerlink" title="Docker镜像加载原理"></a>Docker镜像加载原理</h3><p>Docker的镜像实际上由一层一层文件系统组成，这种层级文件系统就是联合文件系统</p><p>bootfs（boot life system）主要包含bootloader和kernel，bootloader主要是引导加载kernel，linux刚启动时会加载bootfs文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的linux系统是一样的，包含boot加载的内核。当boot加载完成之后整个内核就都在内存中了。此时内存的使用已由bootfs转交给内核，此时系统也会卸载bootfs</p><p>rootfs在bootfs之上，包含的就是典型的linux系统中的/dev，/bin，/etc等标准目录和文件，rootfs就是各种不同的操作系统发行版，比如centos等等</p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-1.png" alt="image-20201210150556417"></p><p>我们平时安装虚拟机的centos都是好几个g，为什么docker里才200M？</p><p>对于一个精简的os，rootfs可以小，只要包含最基本的命令，工具和程序库就可以，因为底层直接用Host和kernel，自己只需要提供rootfs就可以了。由此可见对于不同的linux发行版，bootfs基本是一致的，rootfs会有差别，因此不同的发行版可以公用bootfs</p><h2 id="分层理解"><a href="#分层理解" class="headerlink" title="分层理解"></a>分层理解</h2><p><strong>分层的镜像</strong></p><p>下载一个镜像，观察下载的日志输出，可以看到是一层一层在下载</p><p>为什么docker镜像要采用这种分层的结构呢？</p><p>因为可以进行资源共享。比如有多个镜像从相同的Base镜像构建而来，那么宿主机只需要在磁盘上保留一份Base镜像，同时内存中也只需要加载一份Base镜像，这样就可以为所有的容器服务了，而且镜像每一层都可以被共享。</p><p><strong>理解</strong></p><p>所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的镜像层的时候，就会在当前镜像层之上，创建新的镜像层。</p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-2.png" alt="image-20201210153321084"></p><p>在添加额外的镜像层的同时，镜像始终保持是当前所有镜像的组合，理解这一点非常重要。下面这个例子，每个镜像层包含三个文件，而镜像包含了两个镜像层的6个文件。</p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-3.png" alt="image-20201210153632361"></p><p>下图展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版本。</p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-4.png" alt="image-20201210153808042"></p><p>上图镜像层中的文件覆盖了底层镜像层中的文件，这样就使得文件的更新版本作为一个新的镜像层添加到镜像中。</p><p>Docker通过存储引擎（新版本是采用快照机制）的方式来实现镜像层堆栈，并保证多镜像层对外展示为统一文件系统</p><p>下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-5.png" alt="image-20201210154242853"></p><p><strong>特点</strong></p><p>Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部</p><p><strong>这一层就是我们通常所说的容器层，容器之下的都叫镜像层</strong></p><p><img src="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/1-6.png" alt="image-20201210154456020"></p>]]></content>
     
@@ -91,10 +91,10 @@
     
     
     
-    <category term="container" scheme="http://www.jonyonwzj.top/categories/container/"/>
+    <category term="运维" scheme="http://www.jonyonwzj.top/categories/%E8%BF%90%E7%BB%B4/"/>
     
     
-    <category term="Docker" scheme="http://www.jonyonwzj.top/tags/Docker/"/>
+    <category term="容器" scheme="http://www.jonyonwzj.top/tags/%E5%AE%B9%E5%99%A8/"/>
     
   </entry>
   
