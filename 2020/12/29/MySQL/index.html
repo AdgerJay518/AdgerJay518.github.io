@@ -24,30 +24,49 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Trust The Process">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Joynoy&#39;s Blog">
-<meta property="og:url" content="http://www.jonyonwzj.top/index.html">
+<meta name="description" content="MySQLjavaEE 企业级开发 Web 前端：页面渲染，展示数据 后台：连接点  连接数据库JDBC 连接前端(控制，控制视图跳转，给前端传数据)  数据库：存储数据(TXT,Excel,Word) 5.7版本最稳定 什么是数据库数据库(DB database) 概念：数据仓库，安装在操作系统（windows，linux）上，SQL可以存储大量的数据 500万 作用：存储数据，管理数据 阿里云">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="http://www.jonyonwzj.top/2020/12/29/MySQL/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="Trust The Process">
+<meta property="og:description" content="MySQLjavaEE 企业级开发 Web 前端：页面渲染，展示数据 后台：连接点  连接数据库JDBC 连接前端(控制，控制视图跳转，给前端传数据)  数据库：存储数据(TXT,Excel,Word) 5.7版本最稳定 什么是数据库数据库(DB database) 概念：数据仓库，安装在操作系统（windows，linux）上，SQL可以存储大量的数据 500万 作用：存储数据，管理数据 阿里云">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201227135821340.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201228152233605.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201228134034520.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201228134325920.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229115051120.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229115228329.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229115452418.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229115943793.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229120104184.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229120155673.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229153000652.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229153025902.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229153051165.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229153410785.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201229153751973.png">
+<meta property="article:published_time" content="2020-12-29T08:48:19.000Z">
+<meta property="article:modified_time" content="2021-04-02T08:52:29.958Z">
 <meta property="article:author" content="Zhengjie Wu">
+<meta property="article:tag" content="SQL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.jonyonwzj.top/2020/12/29/MySQL/image-20201227135821340.png">
 
 
-<link rel="canonical" href="http://www.jonyonwzj.top/">
+<link rel="canonical" href="http://www.jonyonwzj.top/2020/12/29/MySQL/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>Joynoy's Blog</title>
+<title>MySQL | Joynoy's Blog</title>
   
 
   <script>
@@ -185,7 +204,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -198,6 +217,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">什么是数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E8%A7%84%E8%8C%83"><span class="nav-text">阿里云规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB"><span class="nav-text">数据库分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">新建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">命令行操作数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93-1"><span class="nav-text">操作数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%97%E7%B1%BB%E5%9E%8B"><span class="nav-text">数据库的列类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E5%B1%9E%E6%80%A7%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-text">数据库的字段属性（重点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8"><span class="nav-text">创建数据库表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AF%AD%E5%8F%A5"><span class="nav-text">查看创建数据库的语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">数据表的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%92%8C%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-text">修改和删除表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="nav-text">Mysql数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%EF%BC%88%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF%EF%BC%89"><span class="nav-text">外键（了解即可）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DML%E8%AF%AD%E8%A8%80%EF%BC%88%E5%85%A8%E9%83%A8%E8%AE%B0%E4%BD%8F%EF%BC%89"><span class="nav-text">DML语言（全部记住）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-insert"><span class="nav-text">添加(insert)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-update"><span class="nav-text">修改(update)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4-delete"><span class="nav-text">删除(delete)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE%E5%88%A0%E9%99%A4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">DELETE删除的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SELECT%E5%AE%8C%E6%95%B4%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">SELECT完整的语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE-%E9%87%8D%E7%82%B9"><span class="nav-text">DQL查询数据(重点)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DQL"><span class="nav-text">DQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%9F%A5%E8%AF%A2%E5%AD%97%E6%AE%B5"><span class="nav-text">指定查询字段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct"><span class="nav-text">distinct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%97-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">数据库的列(表达式)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where%E6%9D%A1%E4%BB%B6%E5%AD%90%E5%8F%A5"><span class="nav-text">where条件子句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2-%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">模糊查询:比较运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-text">联表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JOIN%E5%AF%B9%E6%AF%94"><span class="nav-text">JOIN对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#on%E5%92%8Cwhere"><span class="nav-text">on和where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E8%BF%9E%E6%8E%A5"><span class="nav-text">自连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E5%92%8C%E6%8E%92%E5%BA%8F"><span class="nav-text">分页和排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E5%92%8C%E8%BF%87%E6%BB%A4%EF%BC%88group-by%E2%80%A6having%EF%BC%89"><span class="nav-text">分组和过滤（group by…having）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%87%BD%E6%95%B0"><span class="nav-text">MySQL函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-text">常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-text">聚合函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BA%A7%E5%88%AB%E7%9A%84MD5%E5%8A%A0%E5%AF%86"><span class="nav-text">数据库级别的MD5加密</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1"><span class="nav-text">什么是事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%8E%9F%E5%88%99-ACID%E5%8E%9F%E5%88%99"><span class="nav-text">事务原则:ACID原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%88Isolation%EF%BC%89%E6%89%80%E5%AF%BC%E8%87%B4%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-text">隔离性（Isolation）所导致的一些问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">索引的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%B4%A2%E5%BC%95"><span class="nav-text">测试索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%8E%9F%E5%88%99"><span class="nav-text">索引原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E5%92%8C%E5%A4%87%E4%BB%BD"><span class="nav-text">权限管理和备份</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-text">用户管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="nav-text">MySQL数据库备份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-text">规范数据库设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%AE%BE%E8%AE%A1"><span class="nav-text">为什么需要设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F"><span class="nav-text">三大范式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDBC"><span class="nav-text">JDBC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%A9%B1%E5%8A%A8"><span class="nav-text">数据库驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDBC-1"><span class="nav-text">JDBC</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -268,110 +288,10 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2021/02/10/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Jonyon's.png">
-      <meta itemprop="name" content="Zhengjie Wu">
-      <meta itemprop="description" content="Trust The Process">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joynoy's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/10/redis/" class="post-title-link" itemprop="url">redis</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-10 23:08:15" itemprop="dateCreated datePublished" datetime="2021-02-10T23:08:15+08:00">2021-02-10</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-02 16:53:30" itemprop="dateModified" datetime="2021-04-02T16:53:30+08:00">2021-04-02</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-        </span>
-          , 
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
-        </span>
-    </span>
 
   
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="NoSQL概述"><a href="#NoSQL概述" class="headerlink" title="NoSQL概述"></a>NoSQL概述</h1><h2 id="为什么要用NoSQL"><a href="#为什么要用NoSQL" class="headerlink" title="为什么要用NoSQL"></a>为什么要用NoSQL</h2><p>现在是大数据时代，一般的数据库无法进行分析处理</p>
-<ol>
-<li><p>单机MySQL年代</p>
-<p><img src="/2021/02/10/redis/image-20210130134059341.png" alt="image-20210130134059341"></p>
-<p>90年代，一个基本的网站访问量一般不会太大，单个数据库完全足够</p>
-<p>那个时候更多的是去使用静态网页html，服务器更本没有太大的压力</p>
-<p>在这种情况下，整个网站的瓶颈是什么</p>
-<p>1.数据量如果太大，一个机器放不下</p>
-<p>2.数据的索引，300万条数据，一定需要创建索引(B+Tree),一个机器内存放不下</p>
-<p>3.访问量，读写混合，一个服务器承受不了</p>
-<p>只要出现以上三个情况之一，那么就需要升级</p></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/02/10/redis/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
 
 
 <div class="post-block">
@@ -391,9 +311,9 @@
       <meta itemprop="name" content="Joynoy's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/29/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          MySQL
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -423,6 +343,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -432,7 +359,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>javaEE 企业级开发 Web</p>
+        <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>javaEE 企业级开发 Web</p>
 <p>前端：页面渲染，展示数据</p>
 <p>后台：连接点</p>
 <ul>
@@ -1198,7 +1125,6 @@
 <p>javax.sql</p>
 <p>数据库驱动：mysql-connector-java-5.1.47</p>
 
-      
     </div>
 
     
@@ -1206,257 +1132,71 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/username">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/channel_name">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Jonyon's.png">
-      <meta itemprop="name" content="Zhengjie Wu">
-      <meta itemprop="description" content="Trust The Process">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joynoy's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/" class="post-title-link" itemprop="url">容器数据卷</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-12-12 17:16:44 / Modified: 17:22:34" itemprop="dateCreated datePublished" datetime="2020-12-12T17:16:44+08:00">2020-12-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p><strong>docker理念</strong>：将应用和环境打包成一个镜像</p>
-<p>但是如果数据都在容器中，那么容器一删除，数据就会丢失。于是提出了新的需求：<strong>数据持久化</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Jonyon's.png">
-      <meta itemprop="name" content="Zhengjie Wu">
-      <meta itemprop="description" content="Trust The Process">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joynoy's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Docker镜像加载原理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-12-12 11:45:39" itemprop="dateCreated datePublished" datetime="2020-12-12T11:45:39+08:00">2020-12-12</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-31 23:24:15" itemprop="dateModified" datetime="2021-03-31T23:24:15+08:00">2021-03-31</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="镜像是什么"><a href="#镜像是什么" class="headerlink" title="镜像是什么"></a>镜像是什么</h2><p>镜像是一种轻量级，可独立执行的软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的内容，包括代码、运行时，库、环境变量和配置文件</p>
-<p>所有的应用，直接打包docker镜像，就可以运行起来</p>
-<p>如何得到镜像</p>
-<ul>
-<li><p>从远程仓库下载</p>
-</li>
-<li><p>别人拷贝给你</p>
-</li>
-<li><p>自己制作一个DockerFile</p></li></ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/12/Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/#more" rel="contents">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/12/%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7/" rel="prev" title="容器数据卷">
+                  <i class="fa fa-chevron-left"></i> 容器数据卷
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/11/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Jonyon's.png">
-      <meta itemprop="name" content="Zhengjie Wu">
-      <meta itemprop="description" content="Trust The Process">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joynoy's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/11/git/" class="post-title-link" itemprop="url">git</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2020-12-11 16:31:39 / Modified: 16:34:26" itemprop="dateCreated datePublished" datetime="2020-12-11T16:31:39+08:00">2020-12-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h1><p>git config –list</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/11/git/#more" rel="contents">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-item">
+                <a href="/2021/02/10/redis/" rel="next" title="redis">
+                  redis <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
@@ -1464,9 +1204,7 @@
 
 
 
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
+
 
 
 <script>
