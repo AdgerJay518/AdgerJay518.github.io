@@ -24,12 +24,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="ThreadLocal多线程访问同一个共享变量的时候容易出现并发问题，为了保证线程安全，使用者在访问共享变量的时候需要进行额外的同步措施。 我们都知道加锁这种同步方式，ThreadLocal是除了加锁之外的一种规避多线程访问出现线程不安全的方法。 ThreadLocal简介ThreadLocal类主要解决的就是让每个线程都绑定自己的值，在创建一个线程后，如果每个线程对其进行访问的时候都是访问的线程">
+<meta name="description" content="ThreadLocal多线程访问同一个共享变量的时候容易出现并发问题，为了保证线程安全，使用者在访问共享变量的时候需要进行额外的同步措施。 我们都知道加锁这种同步方式，ThreadLocal是除了加锁之外的一种规避多线程访问出现线程不安全的方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadLocal">
 <meta property="og:url" content="http://www.jonyonwzj.top/2021/04/09/ThreadLocal/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="ThreadLocal多线程访问同一个共享变量的时候容易出现并发问题，为了保证线程安全，使用者在访问共享变量的时候需要进行额外的同步措施。 我们都知道加锁这种同步方式，ThreadLocal是除了加锁之外的一种规避多线程访问出现线程不安全的方法。 ThreadLocal简介ThreadLocal类主要解决的就是让每个线程都绑定自己的值，在创建一个线程后，如果每个线程对其进行访问的时候都是访问的线程">
+<meta property="og:description" content="ThreadLocal多线程访问同一个共享变量的时候容易出现并发问题，为了保证线程安全，使用者在访问共享变量的时候需要进行额外的同步措施。 我们都知道加锁这种同步方式，ThreadLocal是除了加锁之外的一种规避多线程访问出现线程不安全的方法。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/04/09/ThreadLocal/image-20210409154143633.png">
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/04/09/ThreadLocal/image-20210409155137602.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/04/09/ThreadLocal/image-20210409160120946.png">
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/04/09/ThreadLocal/image-20210409161351660.png">
 <meta property="article:published_time" content="2021-04-09T06:29:37.000Z">
-<meta property="article:modified_time" content="2021-04-09T08:48:40.419Z">
+<meta property="article:modified_time" content="2021-04-10T04:49:45.432Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta property="article:tag" content="JAVA基础">
 <meta name="twitter:card" content="summary">
@@ -312,10 +312,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-04-09 14:29:37 / Modified: 16:48:40" itemprop="dateCreated datePublished" datetime="2021-04-09T14:29:37+08:00">2021-04-09</time>
+      <time title="Created: 2021-04-09 14:29:37" itemprop="dateCreated datePublished" datetime="2021-04-09T14:29:37+08:00">2021-04-09</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-04-10 12:49:45" itemprop="dateModified" datetime="2021-04-10T12:49:45+08:00">2021-04-10</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -345,6 +351,8 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><p>多线程访问同一个共享变量的时候容易出现并发问题，为了保证线程安全，使用者在访问共享变量的时候需要进行额外的同步措施。</p>
 <p>我们都知道<strong>加锁</strong>这种同步方式，<strong>ThreadLocal</strong>是除了加锁之外的一种规避多线程访问出现线程不安全的方法。</p>
+<a id="more"></a>
+
 <h2 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h2><p>ThreadLocal类主要解决的就是让每个线程都绑定自己的值，在创建一个线程后，如果每个线程对其进行访问的时候都是访问的线程自己的变量，就不会存在线程不安全问题。</p>
 <p>ThreadLocal类是由JDK包提供的，它提供线程本地变量，如果创建一个ThreadLocal变量，那么访问这个变量的每一个线程都会有这个变量的本地副本，在实际进行多线程操作的时候，操作的是自己本地内存中的变量，从而规避了线程安全问题。</p>
 <h2 id="ThreadLocal示例"><a href="#ThreadLocal示例" class="headerlink" title="ThreadLocal示例"></a>ThreadLocal示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dxc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test03</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> ThreadLocal&lt;String&gt; local=<span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        System.out.println(s+<span class="string">&quot;:&quot;</span>+local.get());</span><br><span class="line">        local.remove();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                local.set(<span class="string">&quot;local1&quot;</span>);</span><br><span class="line">                print(<span class="string">&quot;T1&quot;</span>);</span><br><span class="line">                System.out.println(<span class="string">&quot;after remove:&quot;</span>+local.get());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                local.set(<span class="string">&quot;local2&quot;</span>);</span><br><span class="line">                print(<span class="string">&quot;T2&quot;</span>);</span><br><span class="line">                System.out.println(<span class="string">&quot;after remove:&quot;</span>+local.get());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">T1:local1</span><br><span class="line">after remove:<span class="keyword">null</span></span><br><span class="line">T2:local2</span><br><span class="line">after remove:<span class="keyword">null</span></span><br></pre></td></tr></table></figure>
