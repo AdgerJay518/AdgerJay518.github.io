@@ -24,20 +24,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Trust The Process">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://www.jonyonwzj.top/tags/index.html">
+<meta name="description" content="锁什么是锁？在计算机科学中，锁或互斥是一种同步机制，用于在有许多线程执行的情况下强制对资源进行访问限制。锁旨在强制实施互斥排他、并发控制策略。 锁通常需要硬件支持才能有效实施。这种支持通常采用一个或多个原子指令的形式，如“test-and-set”、“fetch-and-add”、“compare-and-swap”。这些指令允许单个进程测试锁是否空闲，如果空闲，则通过单个原子操作获取锁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="锁">
+<meta property="og:url" content="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/index.html">
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
-<meta property="og:description" content="Trust The Process">
+<meta property="og:description" content="锁什么是锁？在计算机科学中，锁或互斥是一种同步机制，用于在有许多线程执行的情况下强制对资源进行访问限制。锁旨在强制实施互斥排他、并发控制策略。 锁通常需要硬件支持才能有效实施。这种支持通常采用一个或多个原子指令的形式，如“test-and-set”、“fetch-and-add”、“compare-and-swap”。这些指令允许单个进程测试锁是否空闲，如果空闲，则通过单个原子操作获取锁。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-07T15:17:50.000Z">
-<meta property="article:modified_time" content="2020-12-07T15:30:06.311Z">
+<meta property="article:published_time" content="2021-04-11T05:59:41.000Z">
+<meta property="article:modified_time" content="2021-04-11T07:44:09.930Z">
 <meta property="article:author" content="Zhengjie Wu">
+<meta property="article:tag" content="JAVA基础">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.jonyonwzj.top/tags/">
+<link rel="canonical" href="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/">
 
 
 <script class="page-configurations">
@@ -45,12 +46,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
-<title>标签 | Joynoy's Blog
-</title>
+<title>锁 | Joynoy's Blog</title>
   
 
   <script>
@@ -188,7 +188,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -201,6 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%81"><span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81%EF%BC%9F"><span class="nav-text">什么是锁？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%94%81%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">Java锁的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁&#x2F;悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%89%88%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-text">数据版本机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS"><span class="nav-text">CAS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -271,43 +272,194 @@
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/">
 
-    
-    
-    
-    <div class="post-block" lang="en"><header class="post-header">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Jonyon's.png">
+      <meta itemprop="name" content="Zhengjie Wu">
+      <meta itemprop="description" content="Trust The Process">
+    </span>
 
-<h1 class="post-title" itemprop="name headline">标签
-</h1>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joynoy's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          锁
+        </h1>
 
-<div class="post-meta-container">
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-04-11 13:59:41 / Modified: 15:44:09" itemprop="dateCreated datePublished" datetime="2021-04-11T13:59:41+08:00">2021-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      <div class="post-body"><div class="tag-cloud">
-  <div class="tag-cloud-title">
-    7 tags in total
-  </div>
-  <div class="tag-cloud-tags">
-    <a href="/tags/Docker/" style="font-size: 21px;" class="tag-cloud-5">Docker</a> <a href="/tags/JAVA%E5%9F%BA%E7%A1%80/" style="font-size: 21px;" class="tag-cloud-5">JAVA基础</a> <a href="/tags/Java%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80/" style="font-size: 30px;" class="tag-cloud-10">Java面试基础</a> <a href="/tags/NoSQL/" style="font-size: 12px;" class="tag-cloud-0">NoSQL</a> <a href="/tags/SQL/" style="font-size: 12px;" class="tag-cloud-0">SQL</a> <a href="/tags/git/" style="font-size: 12px;" class="tag-cloud-0">git</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 12px;" class="tag-cloud-0">容器</a>
-  </div>
-</div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="什么是锁？"><a href="#什么是锁？" class="headerlink" title="什么是锁？"></a>什么是锁？</h2><p>在计算机科学中，锁或互斥是一种同步机制，用于在有许多线程执行的情况下强制对资源进行访问限制。锁旨在强制实施互斥排他、并发控制策略。</p>
+<p>锁通常需要硬件支持才能有效实施。这种支持通常采用一个或多个原子指令的形式，如“test-and-set”、“fetch-and-add”、“compare-and-swap”。这些指令允许单个进程测试锁是否空闲，如果空闲，则通过单个原子操作获取锁。</p>
+<a id="more"></a>
 
-      </div>
-      
-      
-      
+<h1 id="Java锁的种类"><a href="#Java锁的种类" class="headerlink" title="Java锁的种类"></a>Java锁的种类</h1><ul>
+<li>乐观锁/悲观锁</li>
+<li>独享锁/共享锁</li>
+<li>互斥锁/读写锁</li>
+<li>可重入锁</li>
+<li>公平锁/非公平锁</li>
+<li>分段所</li>
+<li>偏向锁/轻量级锁/重量级锁</li>
+<li>自旋锁</li>
+</ul>
+<p><strong>以上这些分类并不全是指锁的状态，有的指锁的特性，有的指锁的设计</strong></p>
+<h2 id="乐观锁-悲观锁"><a href="#乐观锁-悲观锁" class="headerlink" title="乐观锁/悲观锁"></a>乐观锁/悲观锁</h2><p>乐观锁和悲观锁并不特指两种类型的锁，是一种广义上的概念，体现了看待线程的不同角度。在Java和数据库中都有此概念对应的实际应用。</p>
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>乐观锁：一种非常乐观的锁，他认为自己在使用数据的时候不会有别的线程来修改，于是每次都不加锁，但是在更新的时候会判断一下在此期间有没有别的线程更新了这个数据(一般使用数据版本机制和CAS操作)。如果这个数据没有被更新，则将当前线程的数据成功写入；如果数据已被其他线程更新，一般会选择报错或重试3-5次。Java中，java.util.concurrent.atomic包下的原子变量类就是使用了乐观锁的一种实现方式CAS实现的。</p>
+<h4 id="数据版本机制"><a href="#数据版本机制" class="headerlink" title="数据版本机制"></a>数据版本机制</h4><p>数据版本机制</p>
+<p>实现数据版本机制一般有两种，一种是使用版本号，一种是使用时间戳。以版本号方式为例。</p>
+<p>在数据表中加上一个数据版本号version字段，表示数据被修改的次数，当数据被修改时，version+1.当线程要更新数据值时，在读取数据的同时也会读取version值，在提交更新时，如刚才读取到的version值与当前的version值相同才能完成更新，否则重试直到成功。</p>
+<h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS（compare and swap–比较并交换）</p>
+<p>是一种无锁算法，在不使用锁的情况下实现线程之间的变量同步。</p>
+<p>CAS算法涉及到三个操作数：</p>
+<ul>
+<li>V：需要读写的内存值</li>
+<li>A：进行比较的值</li>
+<li>B：要写入的新值</li>
+</ul>
+<p>当且仅当 V 的值等于 A 时，CAS通过原子方式用新值B来更新V的值（“比较+更新”整体是一个原子操作），否则不会执行任何操作。一般情况下，“更新”是一个不断重试的操作。</p>
+<blockquote>
+<p>举个例子：现在一个线程要修改数据库的name，修改前会先去数据库查name的值，这时name=“jonyon”，拿到值后准备修改成name=“wzj”，在修改之前我们先判断一下，原来的name是不是等于“jonyon”，如果被其它的线程修改就会发现name不等于“jonyon”了，我们就不进行操作，如果原来的值还是“jonyon”，我们就把name修改为“wzj”</p>
+</blockquote>
+<p>CAS缺点：ABA问题、CPU开销问题、只能保证一个共享变量原子操作问题</p>
+<p>ABA问题：狸猫换太子，内存中的值虽然和进行比较的值一样，但他已经被修改过一次并且又修改了回来。(可以通过加版本号的方式解决)</p>
+<p>CPU开销问题：如果CAS操作长时间不成功，会导致一直自旋，相当于死循环，CPU压力会很大</p>
+<p>只能保证一个共享变量原子操作问题：CAS操作单个共享变量的时候可以保证原⼦的操作，多个变量就不行了，JDK 5之后 AtomicReference可以⽤来保证对象之间的原⼦性，就可以把多个对象放⼊CAS中操作。</p>
+<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>悲观锁：一种非常悲观的锁，他总是假设最坏的情况，认为自己在使用数据的时候一定会有别的线程来修改，于是在获取数据时都会先加锁。Java中，Synchronized关键字和Lock的实现类都是悲观锁。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><blockquote>
+<p>乐观锁在Java中的使用，就是无锁编程，采用的是CAS算法，典型的例子就是原子类，通过CAS自旋实现原子操作的更新。</p>
+<p>悲观锁在Java中的使用，就是利用各种锁。</p>
+</blockquote>
+<p>使用场景</p>
+<ul>
+<li>乐观锁适合读操作多的场景，不加锁能够使其读操作性能大幅提升。</li>
+<li>悲观锁适合写操作多的场景，先加锁能够保证写操作时的数据正确。</li>
+</ul>
+
     </div>
 
     
     
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/username">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/channel_name">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag"># JAVA基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/09/ThreadLocal/" rel="prev" title="ThreadLocal">
+                  <i class="fa fa-chevron-left"></i> ThreadLocal
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
 
 
 
