@@ -31,11 +31,13 @@
 <meta property="og:site_name" content="Joynoy&#39;s Blog">
 <meta property="og:description" content="锁什么是锁？在计算机科学中，锁或互斥是一种同步机制，用于在有许多线程执行的情况下强制对资源进行访问限制。锁旨在强制实施互斥排他、并发控制策略。 锁通常需要硬件支持才能有效实施。这种支持通常采用一个或多个原子指令的形式，如“test-and-set”、“fetch-and-add”、“compare-and-swap”。这些指令允许单个进程测试锁是否空闲，如果空闲，则通过单个原子操作获取锁。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/Users/99405/AppData/Roaming/Typora/typora-user-images/image-20210421172709253.png">
 <meta property="article:published_time" content="2021-04-11T05:59:41.000Z">
-<meta property="article:modified_time" content="2021-04-11T07:44:09.930Z">
+<meta property="article:modified_time" content="2021-04-21T13:04:41.240Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta property="article:tag" content="JAVA基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/Users/99405/AppData/Roaming/Typora/typora-user-images/image-20210421172709253.png">
 
 
 <link rel="canonical" href="http://www.jonyonwzj.top/2021/04/11/%E9%94%81/">
@@ -201,7 +203,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%81"><span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81%EF%BC%9F"><span class="nav-text">什么是锁？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%94%81%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">Java锁的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁&#x2F;悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%89%88%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-text">数据版本机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS"><span class="nav-text">CAS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%81"><span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81%EF%BC%9F"><span class="nav-text">什么是锁？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%94%81%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">Java锁的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁&#x2F;悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%89%88%E6%9C%AC%E6%9C%BA%E5%88%B6"><span class="nav-text">数据版本机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS"><span class="nav-text">CAS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-text">悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%AC%E4%BA%AB%E9%94%81-%E5%85%B1%E4%BA%AB%E9%94%81"><span class="nav-text">独享锁&#x2F;共享锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E4%BA%AB%E9%94%81"><span class="nav-text">独享锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E9%94%81"><span class="nav-text">共享锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81-%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-text">互斥锁&#x2F;读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81-%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-text">公平锁&#x2F;非公平锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-text">公平锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-text">非公平锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E9%94%81"><span class="nav-text">分段锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E9%94%81-%E5%81%8F%E5%90%91%E9%94%81-%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81-%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">无锁&#x2F;偏向锁&#x2F;轻量级锁&#x2F;重量级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E9%94%81"><span class="nav-text">无锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">重量级锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-text">自旋锁</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -306,10 +308,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-04-11 13:59:41 / Modified: 15:44:09" itemprop="dateCreated datePublished" datetime="2021-04-11T13:59:41+08:00">2021-04-11</time>
+      <time title="Created: 2021-04-11 13:59:41" itemprop="dateCreated datePublished" datetime="2021-04-11T13:59:41+08:00">2021-04-11</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-04-21 21:04:41" itemprop="dateModified" datetime="2021-04-21T21:04:41+08:00">2021-04-21</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -383,6 +391,56 @@
 <li>乐观锁适合读操作多的场景，不加锁能够使其读操作性能大幅提升。</li>
 <li>悲观锁适合写操作多的场景，先加锁能够保证写操作时的数据正确。</li>
 </ul>
+<h2 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h2><p>独享锁和共享锁同样是一种概念，是通过AQS来实现的，通过实现不同的方法，来实现独享或者共享。</p>
+<h3 id="独享锁"><a href="#独享锁" class="headerlink" title="独享锁"></a>独享锁</h3><p>独享锁也叫排他锁，是指锁一次只能被一个线程所持有。如果线程T对数据A加上排他锁后，则其他线程不能再对A加任何类型的锁。获得排他锁的线程即能读数据也能修改数据。</p>
+<h3 id="共享锁"><a href="#共享锁" class="headerlink" title="共享锁"></a>共享锁</h3><p>共享锁是指该锁能被多个线程所持有。如果线程T对数据A加上共享锁后，其他线程只能对A再加共享锁，不能加排他锁。只能读数据，不能修改数据。</p>
+<h2 id="互斥锁-读写锁"><a href="#互斥锁-读写锁" class="headerlink" title="互斥锁/读写锁"></a>互斥锁/读写锁</h2><p>互斥锁/读写锁就是独享锁/共享锁具体的实现</p>
+<p>互斥锁在java中具体的实现就是ReentrantLock</p>
+<p>读写锁在java中具体的实现就是ReadWriteLock</p>
+<h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>可重入锁又名递归锁，是指在同一个线程在外层方法获取锁的时候，再进入该线程的内层方法会自动获取锁。</p>
+<p>ReentrantLock和Synchronized都是可重入锁。</p>
+<p>可重入锁的优点是可一定程度避免死锁。</p>
+<p>举个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">A</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;方法A执行&quot;</span>);</span><br><span class="line">        B();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">B</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;方法B执行&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<p><img src="/2021/04/11/%E9%94%81/Users\99405\AppData\Roaming\Typora\typora-user-images\image-20210421172709253.png" alt="image-20210421172709253"></p>
+<p>在上面的例子中，两个方法都是被synchronized关键字修饰的，A中调用B方法。因为synchronized是可重入锁，所以同一个线程在调用B方法时可以直接获得当前对象的锁，进入B方法进行操作。</p>
+<p>如果是不可重入锁，那么当前线程在调用B方法前，需要将执行A方法时获取的锁释放掉，但实际上该对象锁已被当前线程所持有，无法释放，所以会出现死锁。</p>
+<h2 id="公平锁-非公平锁"><a href="#公平锁-非公平锁" class="headerlink" title="公平锁/非公平锁"></a>公平锁/非公平锁</h2><p>ReentrantLock：默认是非公平锁。通过AQS实现线程调度(可以通过构造函数指定该锁是否是公平锁)，优点在于吞吐量比公平锁大。</p>
+<p>Synchronized：非公平锁。由于不是通过AQS实现线程调度，所以无法变成公平锁。</p>
+<h3 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h3><p>公平锁是指多个线程按照申请锁的顺序来依次获取锁。</p>
+<p>线程直接进入队列排队，队列中的第一个线程才能获得锁。</p>
+<p>优点：</p>
+<ul>
+<li>等待锁的线程不会饿死</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>吞吐效率低于非公平锁</li>
+<li>等待队列中除第一个线程以外的所有线程都会阻塞</li>
+<li>CPU唤醒阻塞线程的开销比非公平锁大</li>
+</ul>
+<h3 id="非公平锁"><a href="#非公平锁" class="headerlink" title="非公平锁"></a>非公平锁</h3><p>非公平锁是指多个线程获取锁的顺序并不是按照锁申请的顺序来的。有可能造成优先级反转或者饥饿现象。</p>
+<p>多个线程加锁时直接尝试获取锁，获取不到才会到等待队列的队尾等待。如果此时锁刚好可用，那么这个线程可以无阻塞直接获取到锁，所以非公平锁有可能会出现后申请锁的线程先得到锁的场景。</p>
+<p>优点：</p>
+<ul>
+<li>减少唤醒线程的开销</li>
+<li>整体吞吐效率高</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>处于等待队列中的线程可能会饿死，或者等很久才获得锁。</li>
+</ul>
+<h2 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h2><p>分段锁是一种锁的设计，并不是具体的一种锁。</p>
+<p>对于JDK1.8之前的ConcurrentHashMap来说，其并发的实现就是通过分段锁的形式来实现高效的并发操作。</p>
+<h2 id="无锁-偏向锁-轻量级锁-重量级锁"><a href="#无锁-偏向锁-轻量级锁-重量级锁" class="headerlink" title="无锁/偏向锁/轻量级锁/重量级锁"></a>无锁/偏向锁/轻量级锁/重量级锁</h2><p>这四种锁是指锁的状态，专门针对synchronized的。</p>
+<p>在Java5通过锁升级的机制来实现高效synchronized，这几种锁的状态是通过对象监视器在对象头中的字段来表明的。    </p>
+<h3 id="无锁"><a href="#无锁" class="headerlink" title="无锁"></a>无锁</h3><p>没有对资源进行加锁，所有线程都能访问并修改同一个资源，但只有一个线程能够成功。</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>一段同步代码一直被一个线程所访问，那么该线程就会自动获取锁，降低获取锁的代价。</p>
+<h3 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><p>当锁是偏向锁的时候，被另外的线程所访问，偏向锁就会升级成轻量级锁。其他线程会通过自旋的形式尝试获取锁，不会阻塞从而提高性能。</p>
+<h3 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h3><p>当锁是轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数还没有获得锁的时候就会进入阻塞，该锁膨胀为重量级锁，让其它申请的线程进入阻塞，性能降低</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>当一个线程在获取锁的时候，如果该锁已经被其他线程获取，那么该线程将循环等待，然后不断判断该锁是否能被成功获取，直到获取到锁才会退出循环。这样的好处是减少线程上下文切换的消耗，缺点是循环会消耗CPU。</p>
 
     </div>
 
