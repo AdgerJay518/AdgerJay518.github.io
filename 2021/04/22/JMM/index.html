@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/W_apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="code-Rb70WNAXWJ">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.jonyonwzj.top","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="JMM(JavaMemoryModle)JMM:Java内存模型，是Java虚拟机规范中所定义的一种的内存模型，Java内存模型是标准化的，屏蔽掉了底层不同计算机的区别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JMM">
+<meta property="og:url" content="http://www.jonyonwzj.top/2021/04/22/JMM/index.html">
+<meta property="og:site_name" content="Joynoy&#39;s Blog">
+<meta property="og:description" content="JMM(JavaMemoryModle)JMM:Java内存模型，是Java虚拟机规范中所定义的一种的内存模型，Java内存模型是标准化的，屏蔽掉了底层不同计算机的区别。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.jonyonwzj.top/2021/04/22/JMM/Users/99405/AppData/Roaming/Typora/typora-user-images/image-20210422210331526.png">
+<meta property="og:image" content="http://www.jonyonwzj.top/2021/04/22/JMM/Users/99405/AppData/Roaming/Typora/typora-user-images/image-20210422210339295.png">
+<meta property="article:published_time" content="2021-04-22T11:44:34.000Z">
+<meta property="article:modified_time" content="2021-04-22T16:04:15.506Z">
+<meta property="article:author" content="Zhengjie Wu">
+<meta property="article:tag" content="JAVA基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.jonyonwzj.top/2021/04/22/JMM/Users/99405/AppData/Roaming/Typora/typora-user-images/image-20210422210331526.png">
+
+
+<link rel="canonical" href="http://www.jonyonwzj.top/2021/04/22/JMM/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>JMM | Joynoy's Blog</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e16a6db01cc305488bc4ebdb147b6f6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Joynoy's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Joynoy's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn something</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/baidusitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>Commonweal 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM-JavaMemoryModle"><span class="nav-text">JMM(JavaMemoryModle)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMM"><span class="nav-text">JMM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text">可见性的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E9%94%81"><span class="nav-text">加锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E4%BF%AE%E9%A5%B0%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F"><span class="nav-text">volatile修饰共享变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MES-%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE"><span class="nav-text">MES(缓存一致性协议)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92"><span class="nav-text">禁止指令重排</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-if-serial"><span class="nav-text">a-if-serial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C"><span class="nav-text">内存屏障</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-text">无法保证原子性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#volatile%E4%B8%8Esynchronized%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">volatile与synchronized的区别</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhengjie Wu"
+      src="/images/Jonyon's.png">
+  <p class="site-author-name" itemprop="name">Zhengjie Wu</p>
+  <div class="site-description" itemprop="description">Trust The Process</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AdgerJay518" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AdgerJay518" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="rss → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>rss</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/username" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;username" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/images/wechat_channel.jpg" title="WeChat → &#x2F;images&#x2F;wechat_channel.jpg"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2021/04/22/JMM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Jonyon's.png">
+      <meta itemprop="name" content="Zhengjie Wu">
+      <meta itemprop="description" content="Trust The Process">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joynoy's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JMM
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-22 19:44:34" itemprop="dateCreated datePublished" datetime="2021-04-22T19:44:34+08:00">2021-04-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-04-23 00:04:15" itemprop="dateModified" datetime="2021-04-23T00:04:15+08:00">2021-04-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JMM-JavaMemoryModle"><a href="#JMM-JavaMemoryModle" class="headerlink" title="JMM(JavaMemoryModle)"></a>JMM(JavaMemoryModle)</h1><p>JMM:Java内存模型，是Java虚拟机规范中所定义的一种的内存模型，Java内存模型是标准化的，屏蔽掉了底层不同计算机的区别。</p>
+<a id="more"></a>
+
+<p>在了解JMM之前先了解现代计算机内存模型:</p>
+<p>我们的计算机在执行程序时，指令是在CPU中执行的，而数据需要存储在内存中，而执行一个程序就需要指令和数据打交道。</p>
+<p>在早期，CPU和内存的的速度是差不多的。但随着时代的发展，CPU的指令速度越来越快，而内存的存取速度却几乎没有改变，这就导致在现代计算机中，CPU的指令速度远超内存的存取速度。为了解决这个问题，现代计算机系统不得不加入一层读写速度尽可能CPU运算速度的高速缓存(cache)来作为内存和CPU之间的缓冲。</p>
+<p>将需要处理的数据复制到缓存中，让运算能够快速进行，当运算结束后再从缓存同步回内存中，这样处理器就无需等待缓慢的内存读写了。</p>
+<p>基于高速缓存的内存交互很好的解决了CPU与内存的速度矛盾，但同时也带来了一个新的问题：<strong>缓存一致性</strong>。</p>
+<p>在多处理器系统中，每个处理器都有自己的高速缓存，而他们又共享同一内存。</p>
+<p><img src="/2021/04/22/JMM/Users\99405\AppData\Roaming\Typora\typora-user-images\image-20210422210331526.png" alt="image-20210422210331526"></p>
+<h1 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h1><p>Java内存模型，描述了Java程序中各种变量(线程共享变量)的访问规则，以及在JVM中将变量存储到内存，和从内存中读取变量这样的底层细节。</p>
+<p>JMM有以下规定：</p>
+<ul>
+<li>所有的共享变量都是基于主内存的，这里所说的变量是实例变量和类变量，不包含局部变量，因为局部变量是线程私有的，因此不存在竞争问题。</li>
+<li>每一个线程还存在自己的工作内存，线程的工作内存，保留了被线程使用的变量的工作副本。</li>
+<li>线程对变量的所有操作都必须在工作内存中完成，而不能直接读写主内存中的变量。</li>
+<li>不同线程之间也不能直接访问对方工作内存中的变量，线程间变量的值的传递需要通过主内存中转来完成。</li>
+</ul>
+<p><img src="/2021/04/22/JMM/Users\99405\AppData\Roaming\Typora\typora-user-images\image-20210422210339295.png" alt="image-20210422210339295"></p>
+<p>多个线程访问进程中的某个共享内存，且这个多线程分别在不同的CPU上执行，则每个CPU都会在各自的Cache中保留一份共享内存的缓存。由于多CPU是可以并行的，可能会出现多个线程同时写各自缓存的情况，而各自的Cache之间的数据就有可能不一样。</p>
+<p>了解了JMM的这些问题，再来看看一段Demo的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test14</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        a.start();</span><br><span class="line">        <span class="keyword">for</span> (;;)&#123;</span><br><span class="line">            <span class="keyword">if</span> (a.isFlag())&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;我出来了！！！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> flag=<span class="keyword">false</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFlag</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        flag=<span class="keyword">true</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;flag=&quot;</span>+flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行这段代码会发现，永久都不会输出<strong>我出来了！！！</strong>，这是因为可见性问题的存在。</p>
+<p>可见性问题的解释：</p>
+<blockquote>
+<p>首先要将变量从主内存拷贝进自己的工作空间，然后对变量进行操作，操作完成再将变量写进主内存，不能直接操作主内存的变量，各个线程中的工作内存存储着主内存中的变量拷贝副本，因此不同的线程无法访问对方的工作内存。</p>
+<p>简单来说就是，多个线程操作一个变量时，当一个先执行的线程改动了这个变量的值时，应当通知其他线程变量的值已经被改动了，原来的值将不可用。</p>
+<p>在这个Demo中，有一个线程先修改了flag的值，可是主线程并不知道flag的值已经被修改了，这时就需要有一个机制来即使通知其他线程flag值已经被修改过，通知完后，其他线程就从主内存中重新去拿值，再在自己的工作内存空间去修改值。</p>
+</blockquote>
+<h1 id="可见性的解决方案"><a href="#可见性的解决方案" class="headerlink" title="可见性的解决方案"></a>可见性的解决方案</h1><h2 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(a)&#123;</span><br><span class="line">            <span class="keyword">for</span> (;;)&#123;</span><br><span class="line">                <span class="keyword">if</span> (a.isFlag())&#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;我出来了！！！&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么加锁可以解决可见性问题呢？</p>
+<p>因为某一个线程进入synchronized代码块前后，线程会获得锁，清空工作内存，从主内存拷贝最新的变量到工作内存成为副本，执行代码后会将修改后的副本的值刷新到主内存中，线程才会释放锁。</p>
+<p>而获取不到锁的线程会循环等待，所以变量的值一直都是最新的。</p>
+<h2 id="volatile修饰共享变量"><a href="#volatile修饰共享变量" class="headerlink" title="volatile修饰共享变量"></a>volatile修饰共享变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag=<span class="keyword">false</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFlag</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        flag=<span class="keyword">true</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;flag=&quot;</span>+flag);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>volatile做了什么？</p>
+<blockquote>
+<p>每个线程操作数据的时候会把数据从主内存读取到自己的工作内存，如果他操作了数据并且写回了，其它线程已经读取的变量副本就会失效了，需要的数据又要从主内存中去读取了。</p>
+<p>volatile保证不同的线程对共享变量操作的可见性，也就是说一个线程修改了volatile修饰的变量，当修改写回主内存时，另一个线程能立即看到变量的最新值。</p>
+</blockquote>
+<p>但这里又会出现一个问题，当多个CPU的运算任务都涉及到同一块主内存区域时，将可能导致各自的缓存数据不一致，如果发生了这种情况，同步回主内存时以谁的缓存数据为准呢？</p>
+<p>为了解决<strong>一致性</strong>的问题，需要各个处理器访问缓存时都遵守一些协议，在读写时要根据协议来进行操作。</p>
+<h1 id="MES-缓存一致性协议"><a href="#MES-缓存一致性协议" class="headerlink" title="MES(缓存一致性协议)"></a>MES(缓存一致性协议)</h1><p>当CPU写数据时，如果发现操作的变量是共享变量，会发出信号通知其它CPU将该变量的缓存设置为无效状态，因此当其它CPU读取这个变量时，会发现自己缓存中该变量是无效的，那么他就会从内存中重新读取。</p>
+<p>如何发现数据是否失效？</p>
+<p><strong>嗅探</strong></p>
+<blockquote>
+<p>每个处理器通过嗅探在总线上传播的数据来检查⾃⼰缓存的值是不是过期了，当处理器发现⾃⼰缓存⾏对应的内存地址被修改，就会将当前处理器的缓存⾏设置成⽆效状态，当处理器对这个数据进⾏修改操作的时候，会重新从系统内存中把数据读到处理器缓存⾥。</p>
+</blockquote>
+<p>但嗅探也有缺点。</p>
+<p><strong>总线风暴</strong></p>
+<blockquote>
+<p>由于Volatile的MESI缓存⼀致性协议，需要不断的从主内存嗅探和cas不断循环，⽆效交互会导致总线带宽达到峰值。</p>
+<p>所以不要⼤量使⽤Volatile，⾄于什么时候去使⽤Volatile什么时候使⽤锁，根据场景区分。</p>
+</blockquote>
+<h1 id="禁止指令重排"><a href="#禁止指令重排" class="headerlink" title="禁止指令重排"></a>禁止指令重排</h1><p>为了提高性能，编译器和处理器常常会对既定的代码执行顺序进行指令重排。</p>
+<p>一般重排序可分为以下三种：</p>
+<ul>
+<li><p>编译器优化的重排序。编译器在不改变单线程语义的前提下，可以重新安排语句的执行顺序;</p>
+</li>
+<li><p>指令级并⾏的重排序。现代处理器采⽤了指令级并行技术来将多条指令重叠执行。如果不存在数据</p>
+<p>依赖性，处理器可以改变语句对应机器指令的执行顺序</p>
+<p>内存系统的重排序。由于处理器使⽤缓存和读/写缓冲区，这使得加载和存储操作看上去可能是在乱</p>
+<p>序执⾏的</p>
+</li>
+</ul>
+<h2 id="a-if-serial"><a href="#a-if-serial" class="headerlink" title="a-if-serial"></a>a-if-serial</h2><p>不管怎么重排序，单线程下的执行结果不能被改变。</p>
+<h2 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h2><p>为了保证volatile不会被执行重排序，java编译器会在⽣成指令系列时在适当的位置会插⼊内存屏障指令来禁止特定类型的处理器重排序</p>
+<p>需要注意的是：volatile的写是在前面和后面分别插入内存屏障，而volatile读是在后面插入两个内存屏障。</p>
+<h1 id="无法保证原子性"><a href="#无法保证原子性" class="headerlink" title="无法保证原子性"></a>无法保证原子性</h1><p>volatile无法保证原子性，原子性就是：要么完全成功，要么完全失败。</p>
+<p>假设现在有N个线程对同⼀个变量进⾏累加也是没办法保证结果是对的，因为读写这个过程并不是原子性的</p>
+<p>要解决也简单，要么用原子类，比如AtomicInteger，要么加锁</p>
+<h1 id="volatile与synchronized的区别"><a href="#volatile与synchronized的区别" class="headerlink" title="volatile与synchronized的区别"></a>volatile与synchronized的区别</h1><ul>
+<li>volatile只能修饰实例变量和类变量，synchronized可以修饰方法，代码块。</li>
+<li>volatile保证数据可见性，但是不保证原子性(多线程进行写操作，不保证线程安全)。而synchronized是一种互斥、排他机制。volatile用于禁止指令重排，可以解决单例双重检查对象初始化代码执行乱序的问题。</li>
+<li>volatile可以看做是轻量版的synchronized，volatile不保证原⼦性，但是如果是对⼀个共享变量进行多个线程的赋值，而没有其他的操作，那么就可以用volatile来代替synchronized，因为赋值本身是有原子性的，而volatile又保证了可见性，所以就可以保证线程安全了。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/username">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://t.me/channel_name">
+          <span class="icon">
+            <i class="fab fa-telegram"></i>
+          </span>
+
+          <span class="label">Telegram</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag"># JAVA基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/11/%E9%94%81/" rel="prev" title="锁">
+                  <i class="fa fa-chevron-left"></i> 锁
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">吴政杰</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("12/05/2020 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</body>
+</html>
