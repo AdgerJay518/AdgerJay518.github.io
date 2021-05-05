@@ -32,7 +32,7 @@
 <meta property="og:description" content="如果finally块中有return语句的话，它将覆盖掉函数中其他return语句    run()方法用来执行线程体中具体的内容 start()方法用来启动线程对象，使其进入就绪状态 sleep()方法用来使线程进入睡眠状态 suspend()方法用来使线程挂起，要通过resume()方法使其重新启动    只有在try代码块得到执行的情况下，finally代码块才会得到执行    包装类的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-07T13:06:10.000Z">
-<meta property="article:modified_time" content="2021-04-30T16:35:59.222Z">
+<meta property="article:modified_time" content="2021-05-05T16:01:12.501Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta name="twitter:card" content="summary">
 
@@ -326,6 +326,20 @@
 <p>在HashMap中，null可以作为键，这样的键只有一个；可以有一个或多个键所对应的值为null。</p>
 <p>Hashtable、HashMap都使用了 Iterator遍历。而由于历史原因，Hashtable还使用了Enumeration的方式 。</p>
 <p>哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>在遇到string类型之前，int间使用“+”还是表示数值的相加，但是遇到第一个string后，后面就都是按string类型来了，变成字符串的拼接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;System.out.println(<span class="number">1</span>+<span class="string">&quot;10&quot;</span>+<span class="number">3</span>+<span class="string">&quot;2&quot;</span>);<span class="comment">//11032</span></span><br><span class="line">&gt;System.out.println(<span class="number">1</span>+<span class="number">2</span>+<span class="string">&quot;10&quot;</span>+<span class="number">3</span>+<span class="string">&quot;2&quot;</span>);<span class="comment">//31032</span></span><br><span class="line">&gt;System.out.println(<span class="number">1</span>+<span class="string">&quot;10&quot;</span>+<span class="number">3</span>+<span class="number">1</span>+<span class="string">&quot;2&quot;</span>);<span class="comment">//110312</span></span><br><span class="line">&gt;System.out.println(<span class="number">1</span>+<span class="string">&quot;10&quot;</span>+<span class="number">3</span>+<span class="number">1</span>+<span class="number">2</span>);<span class="comment">//110312</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><blockquote>
+<p>年老代溢出原因有 循环上万次的字符串处理、创建上千万个对象、在一段代码内申请上百M甚至上G的内存</p>
+<p>持久代溢出原因 动态加载了大量Java类而导致溢出</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>JEE5.0中的Servlet相关的就下面这几个包:<br>javax.servlet<br>javax.servlet.jsp<br>java.servlet.jsp.el<br>java.servlet.jsp.tagext<br>而最用得多的就是<br>javax.servlet<br>javax.servlet.http</p>
 </blockquote>
 </li>
 </ul>
