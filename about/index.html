@@ -32,7 +32,7 @@
 <meta property="og:description" content="如果finally块中有return语句的话，它将覆盖掉函数中其他return语句    run()方法用来执行线程体中具体的内容 start()方法用来启动线程对象，使其进入就绪状态 sleep()方法用来使线程进入睡眠状态 suspend()方法用来使线程挂起，要通过resume()方法使其重新启动    只有在try代码块得到执行的情况下，finally代码块才会得到执行    包装类的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-07T13:06:10.000Z">
-<meta property="article:modified_time" content="2021-05-07T16:03:56.479Z">
+<meta property="article:modified_time" content="2021-05-08T09:16:07.082Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta name="twitter:card" content="summary">
 
@@ -355,23 +355,62 @@
    &#125;
 输出：
 change this
-arena</code></pre>
-<p>Java在内存中专门为string开辟了一个字符串常量池，用来锁定数据不被篡改，所以题目中函数中的str变量和原来的str已经不是一个东西了，它是一个局部引用，指向一个change this的字符串，随着函数结束，它也就什么都没了</p>
+arena
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> &gt;Java在内存中专门为string开辟了一个字符串常量池，用来锁定数据不被篡改，所以题目中函数中的str变量和原来的str已经不是一个东西了，它是一个局部引用，指向一个change this的字符串，随着函数结束，它也就什么都没了</span><br><span class="line"></span><br><span class="line">- &gt;- String s &#x3D;  &quot;abc&quot;    创建了一个对象</span><br><span class="line"> &gt;- String a&#x3D;&quot;abc&quot;  ;  String b&#x3D;&quot;abc&quot;  创建了一个对象</span><br><span class="line"> &gt;- String s &#x3D; &quot;ab&quot;+&quot;cd&quot;   创建了三个对象&quot;ab&quot;+&quot;cd&quot;+&quot;abcd&quot;</span><br><span class="line"></span><br><span class="line">- &gt;常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。</span><br><span class="line"></span><br><span class="line"> &gt;用new String() 创建的字符串不是常量，不能在编译期就确定，所以new String() 创建的字符串不放入常量池中，它们有自己的地址空间。</span><br><span class="line"></span><br><span class="line"> &gt;String str1&#x3D; “abc”； 在编译期，JVM会去常量池来查找是否存在“abc”，如果不存在，就在常量池中开辟一个空间来存储“abc”；如果存在，就不用新开辟空间。然后在栈内存中开辟一个名字为str1的空间，来存储“abc”在常量池中的地址值。</span><br><span class="line"></span><br><span class="line"> &gt;String str2 &#x3D; new String(&quot;abc&quot;) ;在编译阶段JVM先去常量池中查找是否存在“abc”，如果过不存在，则在常量池中开辟一个空间存储“abc”。在运行时期，通过String类的构造器在堆内存中new了一个空间，然后将String池中的“abc”复制一份存放到该堆空间中，在栈中开辟名字为str2的空间，存放堆中new出来的这个String对象的地址值。</span><br><span class="line"> </span><br><span class="line">- &gt;当编写一个java源代码文件时，此文件通常被称为编译单元（有时也被称为转译单元）。每个编译单元都必须有一个后缀名.java，而在编译单元内则可以有一个public类，该类的名称必须与文件的名称相同（包括大小写，但不包括文件的后缀名.java）。每个编译单元只能有一个public类，否则编译器就不会接受。如果在该编译单元之中还有额外的类的话，那么在包之外的世界是无法看见这些类的，这是因为它们不是public类，而且它们主要用来为主public类提供支持。       --《Java 编程思想》</span><br><span class="line"></span><br><span class="line">- &gt;abstract修饰的类是抽象类，是可以继承的；final修饰的类表示不能再被继承。所以abstract和final不能同时使用</span><br><span class="line"></span><br><span class="line">- &gt;HashMap中的value可以为null</span><br><span class="line"></span><br><span class="line"> &gt;get(key)&#x3D;&#x3D;null有两种情况，一种是key不存在，一种是key中存的是null，所以应该使用map.containskey(key)来判断是否存在这个key。get(key)获取的是变量，无法判断是否存在key。</span><br><span class="line"></span><br><span class="line">- &gt;&#96;&#96;&#96;java</span><br><span class="line"> &gt;public static void main(String[] args) &#123;</span><br><span class="line">       int i&#x3D;0;</span><br><span class="line">       change(i);</span><br><span class="line">       System.out.println(i);</span><br><span class="line">   &#125;</span><br><span class="line">   public static void change(int i)&#123;</span><br><span class="line">       i++;</span><br><span class="line">   &#125;</span><br><span class="line"> &gt;输出：0</span><br></pre></td></tr></table></figure>
+
+每个方法都有一个栈帧，栈帧是方法运行时的数据结构，也就是说每个方法都有自己独享的局部变量表(每个线程在执行每个方法时都有自己的栈帧)
+
+被调用方法change()的形式参数int i实际上是调用方法main()的实际参数i的一个副本
+
+方法之间的参数传递是通过局部变量表实现的，main()方法调用change()方法时，传递了1个参数：
+
+显示参数是 i 的一个副本。所以 change()方法对 i 执行的操作只限定在其方法独享或可见的局部变量表这个范围内，main()方法中局部变量表中的i不受它的影响；</code></pre>
 </blockquote>
 </li>
 <li><blockquote>
-<ul>
-<li>String s =  “abc”    创建了一个对象</li>
-<li>String a=”abc”  ;  String b=”abc”  创建了一个对象</li>
-<li>String s = “ab”+”cd”   创建了三个对象”ab”+”cd”+”abcd”</li>
-</ul>
+<pre><code class="java">public static void main(String[] args) &#123;
+       int i=0;
+       i=i++;
+       System.out.println(i);
+   &#125;
+输出：0</code></pre>
+<p>int i = 0; i = i++; </p>
+<p>通过javap大致可以将上面的两行代码翻译成如下的JVM指令执行代码。 </p>
+<p>  0: iconst_0  将int类型的0入栈，就是放到操作数栈的栈顶</p>
+<p>  1: istore_1  将操作数栈栈顶的值0弹出，保存到局部变量表 index （索引）值为1的位置。（局部变量表也是从0开始的，0位置一般保存当前实例的this引用，当然静态方法例外，因为静态方法是类方法而不是实例方法）</p>
+<p>  2: iload_1  将局部变量表index 1位置的值的副本入栈。（这时局部变量表index为1的值是0，操作数栈顶的值也是0）</p>
+<p>  3: iinc      1, 1  iinc是对int类型的值进行自增操作，后面第一个数值1表示，局部变量表的index值，说明要对此值执行iinc操作，第二个数值1表示要增加的数值。（这时局部变量表index为1的值因为执行了自增操作变为1了，但是操作数栈中栈顶的值仍然是0）</p>
+<p>  6: istore_1  将操作数栈顶的值弹出（值0），放到局部变量表index为1的位置（旧值：1，新值：0），覆盖了上一步局部变量表的计算结果。</p>
+<p>  7: iload_1 将局部变量表index 1位置的值的副本入栈。（这时局部变量表index为1的值是0，操作数栈顶的值也是0）</p>
+<p>总结：从执行顺序可以看到，这里第1和第6执行了2次将0赋值给变量i的操作（=号赋值），i++操作是在这两次操作之间执行的，自增操作是对局部变量表中的值进行自增，而栈顶的值没有发生变化，这里需要注意的是保存这个初始值的地方是操作数栈而不是局部变量表，最后再将栈顶的值覆盖到局部变量表i所在的索引位置中去。</p>
+<p>Java使用了中间缓存变量机制：<br>i=i++;等同于：<br>temp=i； (等号右边的i)<br>i=i+1;     (等号右边的i)<br>i=temp;  (等号左边的i)<br>而i=++i;则等同于：<br>i=i+1;<br> temp=i;<br>i=temp;</p>
 </blockquote>
 </li>
 <li><blockquote>
-<p>常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。</p>
-<p>用new String() 创建的字符串不是常量，不能在编译期就确定，所以new String() 创建的字符串不放入常量池中，它们有自己的地址空间。</p>
-<p>String str1= “abc”； 在编译期，JVM会去常量池来查找是否存在“abc”，如果不存在，就在常量池中开辟一个空间来存储“abc”；如果存在，就不用新开辟空间。然后在栈内存中开辟一个名字为str1的空间，来存储“abc”在常量池中的地址值。</p>
-<p>String str2 = new String(“abc”) ;在编译阶段JVM先去常量池中查找是否存在“abc”，如果过不存在，则在常量池中开辟一个空间存储“abc”。在运行时期，通过String类的构造器在堆内存中new了一个空间，然后将String池中的“abc”复制一份存放到该堆空间中，在栈中开辟名字为str2的空间，存放堆中new出来的这个String对象的地址值。</p>
+<p>java实现了真数组，避免了数据覆盖的可能</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>yield()让当前正在运行的线程回到可运行状态，以允许具有相同优先级的其他线程获得运行的机会。因此，使用yield()的目的是让具有相同优先级的线程之间能够适当的轮换执行。但是，实际中无法保证yield()达到让步的目的，因为，让步的线程可能被线程调度程序再次选中。</p>
+<p>yiled方法属于高风亮节的行为，这个坑位我不上了，后面跟我同级别的先上厕所</p>
+<p>高优先级的就是你们的县长，县长要上厕所，对不起，你得出来，县长先上，县长上完了，CPU分配到你了，你才能继续拉X。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>==比较的是地址</p>
+<p>为基本类型时，==比较的是值，如果两边有包装类型，则先将包装类型转换为基本类型再比较值是否相等</p>
+<p>当两边都为包装类型时，即为对象，比较的是地址</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>threadlocal 使用开放地址法 - 线性探测法：当前哈希槽有其他对象占了，顺着数组索引寻找下一个，直到找到为止</p>
+<p>hashset 中调用 hashmap 来存储数据的，hashmap 采用的链地址法：当哈希槽中有其他对象了，使用链表的方式连接到那个对象上</p>
+<p>ThreadLocalMap中使用开放地址法来处理散列冲突，而HashMap中使用的是分离链表法。之所以采用不同的方式主要是因为：在ThreadLocalMap中的散列值分散得十分均匀，很少会出现冲突。并且ThreadLocalMap经常需要清除无用的对象，使用纯数组更加方便。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>接口中字段的修饰符：public static final（默认不写）</p>
+<p>接口中方法的修饰符：public abstract（默认不写）</p>
 </blockquote>
 </li>
 </ul>
