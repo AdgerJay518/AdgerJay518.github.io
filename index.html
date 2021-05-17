@@ -213,20 +213,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -269,6 +269,149 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2021/05/17/%E5%8D%81%E5%A4%A7%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Jonyon's.png">
+      <meta itemprop="name" content="Zhengjie Wu">
+      <meta itemprop="description" content="Trust The Process">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Joynoy's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/17/%E5%8D%81%E5%A4%A7%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">十大经典排序算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-05-17 20:11:17" itemprop="dateCreated datePublished" datetime="2021-05-17T20:11:17+08:00">2021-05-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-05-18 00:23:15" itemprop="dateModified" datetime="2021-05-18T00:23:15+08:00">2021-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>十大排序算法是每个程序员都必须掌握的，目前自己熟悉的算法有冒泡排序，快速排序，选择排序，归并排序。从今天起开始从头学习排序算法，把学习过的复习一遍，加深印象；没有学习过的争取一次学会。</p>
+<h1 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h1><p>排序算法中也有“术语”，想要学习排序算法首先需要理解这些术语的意思。</p>
+<ul>
+<li>稳定排序：有两个相同的数a和b，在排序之前a在b的前面，排序之后a仍然在b的前面，则为稳定排序。</li>
+<li>非稳定排序：有两个相同的数a和b，在排序之前a在b的前面，排序之后a可能不在b的前面，则为非稳定排序。</li>
+<li>原地排序：排序过程中不申请多余的空间，只利用原来存储待排数据的存储空间进行比较和交换。</li>
+<li>非原地排序：需要利用额外的空间来辅助排序。</li>
+</ul>
+<h1 id="十大排序算法"><a href="#十大排序算法" class="headerlink" title="十大排序算法"></a>十大排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>算法步骤</p>
+<ol>
+<li>从左到右比较相邻的两个元素，如果第一个比第二个大，就交换它们两个；如果第二个比第三个大，就交换它们两个……</li>
+<li>重复第一步，这样从左到右一轮比较结束后最后一个元素一定是最大的一个元素。</li>
+<li>开始下一轮比较，依旧重复第一步，不同的是前一轮排序结束后的最后一个元素不再进行比较。</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
+</ol>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] bubbleSort(<span class="keyword">int</span>[] arr)&#123;</span><br><span class="line">    <span class="keyword">int</span> length=arr.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;length-i-<span class="number">1</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j]&gt;arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">int</span> temp=arr[j];</span><br><span class="line">                arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">                arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不难发现这种算法需要遍历数组两次，最好的情况也要遍历一次，且如果两个元素相同则不会进行交换，也没有申请额外的内存空间。</p>
+<p>性质：</p>
+<p>平均时间复杂度:O(n^2)</p>
+<p>最好情况时间复杂度:O(n)</p>
+<p>最坏情况时间复杂度:O(n^2)</p>
+<p>稳定排序</p>
+<p>原地排序</p>
+</blockquote>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>算法步骤</p>
+<ol>
+<li>在未排序数组中找到最小的那个元素，将它和数组第一个元素交换位置(如果第一个元素就是最小元素那么它就和自己交换)。</li>
+<li>在剩下的元素中找到最小元素，和数组第二个元素交换位置。</li>
+<li>重复步骤，直到将整个数组排序。</li>
+</ol>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] selectSort(<span class="keyword">int</span>[] arr)&#123;</span><br><span class="line">    <span class="keyword">int</span> length=arr.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> min=i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;length;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[min]&gt;arr[j])&#123;</span><br><span class="line">                min=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> temp=arr[i];</span><br><span class="line">        arr[i]=arr[min];</span><br><span class="line">        arr[min]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>代码执行的时间都花费在内层for循环中的比较语句和外层for循环里的交换语句。由于选择元素之后会发生交换操作，所以有可能把前面的元素交换到后面，不是稳定的排序。</p>
+<p>性质：</p>
+<p>平均时间复杂度:O(n^2)</p>
+<p>最好情况时间复杂度:O(n^2)</p>
+<p>最坏情况时间复杂度:O(n^2)</p>
+<p>非稳定排序</p>
+<p>原地排序</p>
+</blockquote>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序类似于打牌时整理牌的顺序，</p>
+<p>算法步骤</p>
+<ol>
+<li>从数组第二个元素开始抽取。</li>
+<li>把它与左边第一个元素比较，如果左边第一个元素比它大，则继续与左边第二个元素比较下去，直到遇到不比它大的元素，然后插到这个元素的右边。</li>
+<li>继续选取第3，4，….n个元素,重复步骤 2 ，选择适当的位置插入</li>
+</ol>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] insertSort(<span class="keyword">int</span>[] arr)&#123;</span><br><span class="line">    <span class="keyword">int</span> length=arr.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;length;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> temp=arr[i];</span><br><span class="line">        <span class="keyword">int</span> k=i-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k&gt;=<span class="number">0</span>&amp;&amp;arr[k]&gt;temp)&#123;</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i ; j &gt; k + <span class="number">1</span>; j--) &#123;</span><br><span class="line">            arr[j] = arr[j-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        arr[k+<span class="number">1</span>]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在比较的时候，如果两个数相等，不会进行移动，所以是稳定的</p>
+<p>性质：</p>
+<p>平均时间复杂度:O(n^2)</p>
+<p>最好情况时间复杂度:O(n)</p>
+<p>最坏情况时间复杂度:O(n^2)</p>
+<p>稳定排序</p>
+<p>原地排序</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -612,100 +755,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/02/10/redis/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.jonyonwzj.top/2020/12/29/MySQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Jonyon's.png">
-      <meta itemprop="name" content="Zhengjie Wu">
-      <meta itemprop="description" content="Trust The Process">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Joynoy's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/29/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-12-29 16:48:19" itemprop="dateCreated datePublished" datetime="2020-12-29T16:48:19+08:00">2020-12-29</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-02 19:47:30" itemprop="dateModified" datetime="2021-04-02T19:47:30+08:00">2021-04-02</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>javaEE 企业级开发 Web</p>
-<p>前端：页面渲染，展示数据</p>
-<p>后台：连接点</p>
-<ul>
-<li>连接数据库JDBC</li>
-<li>连接前端(控制，控制视图跳转，给前端传数据)</li>
-</ul>
-<p>数据库：存储数据(TXT,Excel,Word)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/29/MySQL/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
