@@ -309,7 +309,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-05-18 00:23:15" itemprop="dateModified" datetime="2021-05-18T00:23:15+08:00">2021-05-18</time>
+        <time title="Modified: 2021-05-18 20:17:53" itemprop="dateModified" datetime="2021-05-18T20:17:53+08:00">2021-05-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -393,6 +393,47 @@
 <p>最好情况时间复杂度:O(n)</p>
 <p>最坏情况时间复杂度:O(n^2)</p>
 <p>稳定排序</p>
+<p>原地排序</p>
+</blockquote>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>学习归并排序，我们需要理解分治的思想，那什么是分治呢—<strong>分而治之</strong></p>
+<blockquote>
+<p>一个公司有几百、几千人，全部归老板一个人管理肯定不行，那就需要把那么多号人分开来管理。</p>
+<p>每个部门选出一个部长，管理他们部门的所有人；部门里面再选出几个小组长，管理小组成员。</p>
+<p>这样老板把部长管理好，部长把小组长管理好，这不就把全部员工管理好了吗。</p>
+</blockquote>
+<p>再说回算法，所谓归并就是将待排数组分成前后两半排好序，再把排好序的序列合并成一个有序序列。</p>
+<p>先是分，对数组不断的分，一直分到只有一个元素的时候，这个时候就不治而治了(一个元素认为它有序)</p>
+<p>对于合并，只需要不断通过比较取出两个数组中比较小的那一个，放在一个辅助数组中，直到把两个有序数组中的元素取完。</p>
+<p>算法步骤：</p>
+<p>通过递归的方法将大的数组一直分割，直到数组的大小为1，此时只有一个元素，那么该数组就是有序的，之后再把两个数组大小为1的合并成一个大小为2的，两个数组大小为2的合并成一个大小为4的….. 直到全部小的数组合并起来。</p>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sort(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> left,<span class="keyword">int</span> right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(left&lt;right)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">            arr=sort(arr,left,mid);</span><br><span class="line">            arr=sort(arr,mid+<span class="number">1</span>,right);</span><br><span class="line">            mergeSort(arr,left,mid,right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> left,<span class="keyword">int</span> mid,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] temp=<span class="keyword">new</span> <span class="keyword">int</span>[right - left + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> i=left;</span><br><span class="line">        <span class="keyword">int</span> j=mid+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;=mid&amp;&amp;j&lt;=right)&#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i]&lt;arr[j])&#123;</span><br><span class="line">                temp[k++]=arr[i++];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                temp[k++]=arr[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;=mid)&#123;</span><br><span class="line">            temp[k++]=arr[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (j&lt;=right)&#123;</span><br><span class="line">            temp[k++]=arr[j++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">            arr[left++]=temp[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>性质：</p>
+<p>平均时间复杂度:O(nlogn)</p>
+<p>最好情况时间复杂度:O(nlogn)</p>
+<p>最坏情况时间复杂度:O(nlogn)</p>
+<p>稳定排序</p>
+<p>非原地排序</p>
+</blockquote>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>在学习<strong>堆排序</strong>之前，我们首先要知道什么是<strong>堆</strong>。</p>
+<p>堆的特点是堆顶的元素是一个最值，大顶堆的堆顶是最大值，小顶堆则是最小值。</p>
+<p>算法步骤</p>
+<ol>
+<li>把未排序数组构建成大顶堆(如果想要是从大到小排列就构建小顶堆)。</li>
+<li>把第堆顶的元素与最后一个元素交换，因为交换之后破坏了堆的特性，再把剩余的元素再次构成一个大顶堆。</li>
+<li>重复第2步直到剩余的元素只有一个的时候，此时的数组就是有序的了。</li>
+</ol>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] heapSort(<span class="keyword">int</span>[] arr)&#123;</span><br><span class="line">        <span class="keyword">int</span> length=arr.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=(length-<span class="number">2</span>)/<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            downAdjust(arr,i,length-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=length-<span class="number">1</span>;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp=arr[i];</span><br><span class="line">            arr[i]=arr[<span class="number">0</span>];</span><br><span class="line">            arr[<span class="number">0</span>]=temp;</span><br><span class="line">            downAdjust(arr,<span class="number">0</span>,i-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">downAdjust</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> parent,<span class="keyword">int</span> length)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp=arr[parent];</span><br><span class="line">        <span class="keyword">int</span> child=parent*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(child&lt;=length)&#123;</span><br><span class="line">            <span class="keyword">if</span> (child+<span class="number">1</span>&lt;=length&amp;&amp;arr[child]&lt;arr[child+<span class="number">1</span>])&#123;</span><br><span class="line">                child++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (arr[child]&lt;=temp)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[parent]=arr[child];</span><br><span class="line">            parent=child;</span><br><span class="line">            child=parent*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[parent]=temp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>性质：</p>
+<p>平均时间复杂度:O(nlogn)</p>
+<p>最好情况时间复杂度:O(nlogn)</p>
+<p>最坏情况时间复杂度:O(nlogn)</p>
+<p>非稳定排序</p>
 <p>原地排序</p>
 </blockquote>
 
