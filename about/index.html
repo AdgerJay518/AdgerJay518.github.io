@@ -32,7 +32,7 @@
 <meta property="og:description" content="run()方法用来执行线程体中具体的内容 start()方法用来启动线程对象，使其进入就绪状态 sleep()方法用来使线程进入睡眠状态 suspend()方法用来使线程挂起，要通过resume()方法使其重新启动    包装类的值都是final 不可变的    servlet周期包含：  init()–初始化 service()–处理请求 destory()–销毁     Hashtable">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-07T13:06:10.000Z">
-<meta property="article:modified_time" content="2021-05-24T13:12:59.814Z">
+<meta property="article:modified_time" content="2021-05-25T13:19:30.676Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta name="twitter:card" content="summary">
 
@@ -343,9 +343,12 @@
 <li><blockquote>
 <p>如果finally块中有return语句的话，它将覆盖掉函数中其他return语句</p>
 <p>只有在try代码块得到执行的情况下，finally代码块才会得到执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> System.out.println(test(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="keyword">int</span> a=i/<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">     i+=<span class="number">10</span>;</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">     i+=<span class="number">10</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;输出:<span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p><strong>finally表示总是执行。但是其实finally也有不执行的时候</strong></p>
+<p><strong>1. 在try中调用System.exit(0)，强制退出了程序，finally块不执行。</strong></p>
+<p><strong>2. 在进入try块前，出现了异常，finally块不执行。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">&gt;System.out.println(test(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">&gt;<span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">int</span> a=i/<span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line">&gt;&#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">i+=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line">&gt;&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">i+=<span class="number">10</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;输出:<span class="number">20</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> System.out.println(test(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="keyword">int</span> a=i/<span class="number">0</span>;</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">     i+=<span class="number">10</span>;</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">     i+=<span class="number">10</span>;</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;输出:<span class="number">30</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">&gt;System.out.println(test(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">&gt;<span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">int</span> a=i/<span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line">&gt;&#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">i+=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line">&gt;&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">i+=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">return</span> i;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;输出:<span class="number">30</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 <li><blockquote>
@@ -459,6 +462,50 @@
 <p>最左优先原则:</p>
 <p>组合索引的第一个字段必须出现在查询语句中这个索引才会被用到。只要组合索引最左边第一个字段出现在where语句中，那么不管后面的字段是否出现或出现顺序如何，MYSQL引擎都会自动调用索引来优化查询效率。</p>
 <p>根据最左匹配原则可以知道B-Tree建立索引的过程，比如假设有一个3列索引(col1,col2,col3),那么MySQL只会会建立三个索引(col1),(col1,col2),(col1,col2,col3)。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>String split 这个方法默认返回一个数组，如果没有找到分隔符，会把整个字符串当成一个长度为1的字符串数组 ， 返回到结果</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>finalize方法一个对象只能执行一次，只能在第一次进入被回收的队列，而且对象所属于的类重写了finalize方法才会被执行；第二次进入回收队列时不会再执行其finalize方法，而是直接被二次标记，在下一次GC的时候被GC</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>subset(form，true，to，true)是Treeset的非静态方法，该方法返回从form元素到to元素的一个set集合，两个boolean类型是确认是否包含边境值用的</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>任何一个变量，常量，方法，对象和类都需要有名字，这些名字就是<strong>标识符</strong>。</p>
+<ul>
+<li>标识符只有<strong>英文，数字，下划线和$</strong></li>
+<li>必须以字母、下划线或者美元符号开头，<strong>不能以数字开头</strong></li>
+</ul>
+</blockquote>
+</li>
+<li><blockquote>
+<p>off-heap叫做堆外内存，将你的对象从堆中脱离出来序列化，然后存储在一大块内存中，这就像它存储到磁盘上一样，但它仍然在RAM中</p>
+<p>堆外内存不受垃圾收集器管理，也不属于老年代，新生代</p>
+<p><strong>堆外内存意味着把内存对象分配在Java虚拟机的堆以外的内存，这些内存直接受操作系统管理</strong></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>线程安全的map:<strong>HashTable,SynchronizedMap,ConcurrentHashMap</strong></p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>LinkedBlockingQueue是一个基于节点链接的可选是否有界的阻塞队列，不允许null值</p>
+<p>LinkedBlockingQueue是一个线程安全的阻塞队列，实现了先进先出等特性</p>
+<p>PriorityQueue是一个无界队列，不允许null值，入队和出队的时间复杂度是O（log(n)）</p>
+<p>PriorityQueue是不同于先进先出队列的另一种队列。每次从队列中取出的是具有最高优先权的元素</p>
+<p>ConcurrentLinkedQueue 是单向链表结构的无界并发队列。元素操作按照 FIFO (first-in-first-out 先入先出) 的顺序</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>&amp;&amp;是逻辑与 即判断&amp;&amp;两侧的表达式是否都为真，都为真则此&amp;&amp;表达式值为真</p>
+<p>&amp; 是按位与 即将&amp;两侧的数用二进制展开，每一位都求与运算，最后得到的二进制数即为结果</p>
+<p>逻辑与结果只讲真和假，而按位与得出的却是实实在在的一个数</p>
 </blockquote>
 </li>
 </ul>
