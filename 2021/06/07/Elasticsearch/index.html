@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/06/07/Elasticsearch/image-20210606141055419.png">
 <meta property="og:image" content="http://www.jonyonwzj.top/2021/06/07/Elasticsearch/image-20210606141354580.png">
 <meta property="article:published_time" content="2021-06-07T04:28:21.000Z">
-<meta property="article:modified_time" content="2021-06-11T13:19:24.031Z">
+<meta property="article:modified_time" content="2021-06-11T15:11:59.019Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta property="article:tag" content="搜索引擎">
 <meta name="twitter:card" content="summary">
@@ -357,7 +357,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-11 21:19:24" itemprop="dateModified" datetime="2021-06-11T21:19:24+08:00">2021-06-11</time>
+        <time title="Modified: 2021-06-11 23:11:59" itemprop="dateModified" datetime="2021-06-11T23:11:59+08:00">2021-06-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -389,6 +389,8 @@
         <h1 id="Elasticsearch概述"><a href="#Elasticsearch概述" class="headerlink" title="Elasticsearch概述"></a>Elasticsearch概述</h1><p>Elasticsearch 是一个分布式可扩展的实时搜索和分析引擎,一个建立在全文搜索引擎 Apache Lucene(TM) 基础上的搜索引擎.基于RESTful web接口。Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。Luncene是单节点的API，ElasticSearch是分布式的。当然 Elasticsearch 并不仅仅是 Lucene 那么简单，它不仅包括了全文搜索功能，还可以进行以下工作:分布式实时文件存储，并将每一个字段都编入索引，使其可以被搜索。实时分析的分布式搜索引擎。可以扩展到上百台服务器，处理PB级别的结构化或非结构化数据。其实只要知道这几个关键字：<strong>分布式</strong> <strong>实时</strong> <strong>搜索引擎</strong></p>
 <p>总的来说Elasticsearch不是什么新技术，主要是将全文检索、数据分析以及分布式技术整合在了一起，可以作为一个大型分布式集群（数百台服务器），对PB级的数据进行检索和分析，而且开箱即用，上手非常简单。</p>
 <a id="more"></a>
+
+
 
 <h1 id="为什么使用Elasticsearch"><a href="#为什么使用Elasticsearch" class="headerlink" title="为什么使用Elasticsearch"></a>为什么使用Elasticsearch</h1><p>在引入elasticsearch前，我们的数据一般都存储在mysql上，所有的检索都是直接在数据库的查询，当数据库的数据量达到一定量时，数据库的检索效率就会很低，对此我们或许会有很多解决方案，比如对数据库采用分库分表（主从设置），数据库分库分表的确可以解决大部分数据量性能问题，但是同样还是会有两个问题无法避免</p>
 <ul>
