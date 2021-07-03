@@ -32,7 +32,7 @@
 <meta property="og:description" content="run()方法用来执行线程体中具体的内容 start()方法用来启动线程对象，使其进入就绪状态 sleep()方法用来使线程进入睡眠状态 suspend()方法用来使线程挂起，要通过resume()方法使其重新启动    1、jps：查看本机java进程信息。 2、jstack：打印线程的栈信息，制作线程dump文件。 3、jmap：打印内存映射，制作堆dump文件 4、jstat：性能监控工">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-07T13:06:10.000Z">
-<meta property="article:modified_time" content="2021-06-03T15:00:41.827Z">
+<meta property="article:modified_time" content="2021-07-03T14:48:03.098Z">
 <meta property="article:author" content="Zhengjie Wu">
 <meta name="twitter:card" content="summary">
 
@@ -524,6 +524,32 @@
 <p>&amp;&amp;是逻辑与 即判断&amp;&amp;两侧的表达式是否都为真，都为真则此&amp;&amp;表达式值为真</p>
 <p>&amp; 是按位与 即将&amp;两侧的数用二进制展开，每一位都求与运算，最后得到的二进制数即为结果</p>
 <p>逻辑与结果只讲真和假，而按位与得出的却是实实在在的一个数</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>1.成员变量：编译和运行都参考左边。</p>
+<p>2.成员函数（非静态）：编译看左边，运行看右边</p>
+<p>3.静态函数：编译和运行都看左边。</p>
+<p>普通方法，运用的是动态单分配，是根据new的类型确定对象，从而确定调用的方法；</p>
+<p>静态方法，运用的是静态多分派，即根据静态类型确定对象，因此不是根据new的类型确定调用的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;father&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;爸爸打儿子！&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;son&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;打打！&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Father f=<span class="keyword">new</span> Son();</span><br><span class="line">      f.say();</span><br><span class="line">      f.action();</span><br><span class="line">  &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><blockquote>
+<p>变量不能被defalut修饰</p>
+<p>abstract修饰方法和类</p>
+<p>native修饰方法</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>Xms 起始内存</p>
+<p>Xmx 最大内存</p>
+<p>Xmn 新生代内存</p>
+<p>Xss 栈大小。 就是创建线程后，分配给每一个线程的内存大小</p>
+<p>-XX:NewRatio=n:设置年轻代和年老代的比值。如:为3，表示年轻代与年老代比值为1：3，年轻代占整个年轻代年老代和的1/4</p>
+<p>-XX:SurvivorRatio=n:年轻代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5</p>
+<p>-XX:MaxPermSize=n:设置持久代大小</p>
+<p>收集器设置<br>-XX:+UseSerialGC:设置串行收集器<br>-XX:+UseParallelGC:设置并行收集器<br>-XX:+UseParalledlOldGC:设置并行年老代收集器<br>-XX:+UseConcMarkSweepGC:设置并发收集器<br>垃圾回收统计信息<br>-XX:+PrintGC<br>-XX:+PrintGCDetails<br>-XX:+PrintGCTimeStamps<br>-Xloggc:filename<br>并行收集器设置<br>-XX:ParallelGCThreads=n:设置并行收集器收集时使用的CPU数。并行收集线程数。<br>-XX:MaxGCPauseMillis=n:设置并行收集最大暂停时间<br>-XX:GCTimeRatio=n:设置垃圾回收时间占程序运行时间的百分比。公式为1/(1+n)<br>并发收集器设置<br>-XX:+CMSIncrementalMode:设置为增量模式。适用于单CPU情况。<br>-XX:ParallelGCThreads=n:设置并发收集器年轻代收集方式为并行收集时，使用的CPU数。并行收集线程数。</p>
 </blockquote>
 </li>
 </ul>
